@@ -29,7 +29,7 @@ export function organizationJsonLd() {
     email: site.email,
     telephone: site.phone,
     slogan: site.tagline,
-    founder: { "@type": "Person", name: site.founder },
+    founder: { "@type": "Person", name: site.founder, jobTitle: "Founder", image: `${site.url}/team/sri-akash.jpg` },
     address: { "@type": "PostalAddress", addressRegion: "Tamil Nadu", addressCountry: "IN" },
     areaServed,
     knowsAbout: ["Website development", "Web design", "CRM development", "E-commerce development", "Mobile app development", "SaaS development", "Custom software development"],
