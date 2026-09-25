@@ -63,15 +63,15 @@ export function Footer() {
         </div>
       </div>
 
-      {/* big faint wordmark. Drawn as an SVG graphic (decorative), so it is not treated as text content. */}
-      <div aria-hidden className="pointer-events-none select-none overflow-hidden">
-        <div className="gutter mx-auto max-w-[1320px]">
-          <svg viewBox="0 0 1000 205" className="block w-full text-ink/[0.05]" role="presentation">
+      {/* Big faint wordmark: real Syne letterforms (not stretched), drawn as a decorative SVG.
+          The viewBox is the measured ink box of "NexArc" at 262px with -0.045em tracking,
+          so the word fills the container width exactly with nothing clipped. */}
+      <div aria-hidden className="pointer-events-none select-none">
+        <div className="gutter mx-auto max-w-[1320px] pb-4 sm:pb-6">
+          <svg viewBox="20 -170 983 174" className="block w-full text-ink/[0.06]" role="presentation">
             <text
               x="0"
-              y="240"
-              textLength="985"
-              lengthAdjust="spacingAndGlyphs"
+              y="0"
               fill="currentColor"
               style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: 262, letterSpacing: "-0.045em" }}
             >
