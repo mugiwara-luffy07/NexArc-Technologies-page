@@ -18,7 +18,7 @@ export default function WorkPage() {
       <PageIntro title="Work that is live and in daily use">
         Every project here is running for a real business or organisation. Open one to see the problem, what we built and how.
       </PageIntro>
-      <section className="gutter mx-auto max-w-[1320px] pb-16 md:pb-24">
+      <section className="gutter mx-auto max-w-[1320px] pb-14 md:pb-20">
         <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
           {work.length === 1 ? (
             <Reveal className="md:col-span-2">

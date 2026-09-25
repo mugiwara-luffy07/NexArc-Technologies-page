@@ -24,7 +24,7 @@ export default function ProductsPage() {
       </PageIntro>
 
       {live.map((p) => (
-        <section key={p.slug} className="gutter mx-auto max-w-[1320px] pb-16 md:pb-24">
+        <section key={p.slug} className="gutter mx-auto max-w-[1320px] pb-14 md:pb-20">
           <Link href={`/products/${p.slug}`} className="group grid items-center gap-8 rounded-[var(--radius-card)] bg-surface p-5 ring-1 ring-line sm:p-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
               <Shot src={p.cover} alt={`${p.name} screenshot`} ratio="16/10" sizes="(min-width: 1024px) 55vw, 100vw" />
@@ -44,7 +44,7 @@ export default function ProductsPage() {
       ))}
 
       <section id="waitlist" className="scroll-mt-24 bg-canvas">
-        <div className="gutter mx-auto grid max-w-[1320px] gap-12 py-16 md:py-24 lg:grid-cols-12">
+        <div className="gutter mx-auto grid max-w-[1320px] gap-12 py-14 md:py-20 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <h2 className="text-display-lg">Coming soon</h2>
             <ul className="mt-8 flex flex-col gap-8">

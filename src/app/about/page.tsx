@@ -30,7 +30,7 @@ export default function AboutPage() {
 
       {/* Story: narrow editorial column beside the mark */}
       <section className="border-t border-line">
-        <div className="gutter mx-auto grid max-w-[1320px] gap-12 py-16 md:py-24 lg:grid-cols-12">
+        <div className="gutter mx-auto grid max-w-[1320px] gap-12 py-14 md:py-20 lg:grid-cols-12">
           <div className="hidden lg:col-span-3 lg:block">
             <Mark className="size-20" />
           </div>
@@ -55,7 +55,7 @@ export default function AboutPage() {
 
       {/* Principles: two-column typographic list */}
       <section className="bg-canvas">
-        <div className="gutter mx-auto max-w-[1320px] py-16 md:py-24">
+        <div className="gutter mx-auto max-w-[1320px] py-14 md:py-20">
           <h2 className="text-display-lg max-w-[16ch]">How we work</h2>
           <dl className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
             {principles.map((p) => (
@@ -69,7 +69,7 @@ export default function AboutPage() {
       </section>
 
       {/* Founder: photo slot + short bio */}
-      <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 py-16 md:grid-cols-12 md:py-24">
+      <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
           <Shot
             src="/team/sri-akash.jpg"
@@ -99,7 +99,7 @@ export default function AboutPage() {
 
       {/* Service area: visible text, not just schema */}
       <section className="border-t border-line">
-        <div className="gutter mx-auto grid max-w-[1320px] gap-8 py-16 md:py-24 lg:grid-cols-12">
+        <div className="gutter mx-auto grid max-w-[1320px] gap-8 py-14 md:py-20 lg:grid-cols-12">
           <h2 className="text-display-lg lg:col-span-4">Where we work</h2>
           <div className="lg:col-span-7 lg:col-start-6">
             <p className="text-lg text-muted">

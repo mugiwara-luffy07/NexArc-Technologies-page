@@ -12,8 +12,8 @@ export function CtaBand({
   text?: string;
 }) {
   return (
-    <section className="gutter mx-auto max-w-[1320px] pb-16 md:pb-24">
-      <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-brand-ink px-6 py-12 text-brand-paper ring-1 ring-white/10 sm:px-10 md:px-14 md:py-16">
+    <section className="gutter mx-auto max-w-[1320px] pb-14 md:pb-20">
+      <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-brand-ink px-6 py-10 text-brand-paper ring-1 ring-white/10 sm:px-10 md:px-12 md:py-12">
         <Mark tone="paper" className="absolute -right-10 -bottom-10 size-44 opacity-[0.07] md:size-64" />
         <div className="relative max-w-2xl">
           <h2 className="text-display-lg text-balance">{title}</h2>

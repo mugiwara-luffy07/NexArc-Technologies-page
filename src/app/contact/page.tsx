@@ -26,7 +26,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <section className="gutter mx-auto max-w-[1320px] pb-16 pt-10 sm:pt-14 md:pb-24 md:pt-20">
+    <section className="gutter mx-auto max-w-[1320px] pb-16 pt-10 sm:pt-14 md:pb-20 md:pt-20">
       <div className="grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <h1 className="text-display-xl max-w-[14ch]">Tell us about your project</h1>

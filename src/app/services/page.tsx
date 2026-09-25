@@ -21,19 +21,19 @@ export default function ServicesPage() {
         suggest the right fit.
       </PageIntro>
 
-      <section className="gutter mx-auto max-w-[1320px] pb-16 md:pb-24">
+      <section className="gutter mx-auto max-w-[1320px] pb-14 md:pb-20">
         <div className="grid gap-4 md:grid-cols-2">
           {services.map((s, i) => (
             <Link
               key={s.slug}
               href={`/services/${s.slug}`}
               className={
-                "group flex flex-col justify-between gap-8 rounded-[var(--radius-card)] p-7 ring-1 ring-line transition-colors hover:bg-surface sm:p-9 " +
+                "group flex flex-col justify-between gap-8 rounded-[var(--radius-card)] p-7 ring-1 ring-line transition-colors hover:bg-surface sm:p-8 " +
                 (i === 0 ? "md:col-span-2 md:flex-row md:items-end" : "")
               }
             >
               <div className={i === 0 ? "max-w-2xl" : ""}>
-                <h2 className="font-display text-[clamp(1.6rem,1.3rem+1.2vw,2.4rem)] leading-tight font-bold tracking-tight">{s.title}</h2>
+                <h2 className="font-display text-[clamp(1.35rem,1.2rem+0.6vw,1.75rem)] leading-tight font-bold tracking-tight">{s.title}</h2>
                 <p className="mt-3 max-w-[48ch] text-muted">{s.summary}</p>
               </div>
               <div className="flex items-end justify-between gap-6">
@@ -46,7 +46,7 @@ export default function ServicesPage() {
       </section>
 
       <section className="bg-canvas">
-        <div className="gutter mx-auto max-w-[1320px] py-16 md:py-24">
+        <div className="gutter mx-auto max-w-[1320px] py-14 md:py-20">
           <h2 className="text-display-lg max-w-[18ch]">Same process, every project</h2>
           <div className="mt-12">
             <Process />
@@ -54,7 +54,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <div className="pt-16 md:pt-24">
+      <div className="pt-16 md:pt-16">
         <CtaBand />
       </div>
     </>

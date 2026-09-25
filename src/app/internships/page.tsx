@@ -71,7 +71,7 @@ export default function InternshipsPage() {
         </div>
       </section>
 
-      <section id="apply" className="gutter mx-auto max-w-[1320px] scroll-mt-24 py-16 md:py-24">
+      <section id="apply" className="gutter mx-auto max-w-[1320px] scroll-mt-24 py-14 md:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <h2 className="text-display-lg">Apply</h2>
