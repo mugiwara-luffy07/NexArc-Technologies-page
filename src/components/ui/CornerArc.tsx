@@ -1,22 +1,20 @@
 import { clsx } from "clsx";
-import { ARC_PATH } from "@/components/brand/Mark";
 
 /**
- * Signature hover detail: the mark's arc traces the top-left corner of a tile.
+ * Signature hover detail: an arc hugs the tile's rounded top-left corner, just outside it.
+ * Geometry is in real pixels so it stays concentric with the 16px card radius at any tile size:
+ * the svg sits 8px outside the corner, so the corner's centre is at (24,24) and a 22px radius
+ * leaves an even ~5px gap from the edge. Place it with `-left-2 -top-2` on a `relative` wrapper.
  * Parent needs the `group` class. Triggered by hover (pointer devices) and focus-visible.
  */
 export function CornerArc({ className }: { className?: string }) {
   return (
-    <svg
-      aria-hidden
-      viewBox="10 10 30 30"
-      className={clsx("pointer-events-none absolute size-12 sm:size-14", className)}
-    >
+    <svg aria-hidden width="40" height="40" viewBox="0 0 40 40" className={clsx("pointer-events-none absolute overflow-visible", className)}>
       <path
-        d={ARC_PATH}
+        d="M 2 24 A 22 22 0 0 1 24 2"
         pathLength={1}
         fill="none"
-        strokeWidth="5"
+        strokeWidth="3"
         strokeLinecap="round"
         className={clsx(
           // opacity hides the round cap, which would otherwise show as a dot at offset 1

@@ -125,7 +125,7 @@ export default function Home() {
               href={`/products/${live.slug}`}
               className="group relative flex flex-col justify-between gap-10 rounded-[var(--radius-card)] bg-surface p-7 ring-1 ring-line transition-shadow hover:shadow-[0_20px_50px_-30px_rgb(20_20_22/0.35)] sm:p-10 lg:col-span-7"
             >
-              <CornerArc className="left-3 top-3" />
+              <CornerArc className="-left-2 -top-2" />
               <div>
                 <p className="font-mono text-xs text-accent-text">Live now</p>
                 <h3 className="mt-3 font-display text-[clamp(1.75rem,1.4rem+1.4vw,2.5rem)] leading-tight font-bold tracking-tight">

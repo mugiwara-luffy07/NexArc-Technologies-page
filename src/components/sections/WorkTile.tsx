@@ -37,7 +37,7 @@ export function WorkTile({
             ratio="16/10"
             sizes="(min-width: 640px) 320px, 100vw"
             priority={priority}
-            className="transition-transform duration-700 ease-[var(--ease-arc)] [@media(hover:hover)]:group-hover:scale-[0.985]"
+           
           />
           <CornerArc className="-left-2 -top-2" />
         </div>
@@ -62,7 +62,7 @@ export function WorkTile({
           ratio={ratio}
           sizes={sizes}
           priority={priority}
-          className="transition-transform duration-700 ease-[var(--ease-arc)] [@media(hover:hover)]:group-hover:scale-[0.985]"
+         
         />
         <CornerArc className="-left-2 -top-2" />
       </div>
