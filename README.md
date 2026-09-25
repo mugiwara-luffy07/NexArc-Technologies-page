@@ -9,6 +9,8 @@ npm run build        # production build
 npm run test:e2e     # Playwright on Desktop Chrome, iPhone 14, Pixel 7, iPad
 ```
 
+Deploys: pushing to `main` on github.com/mugiwara-luffy07/NexArc-Technologies-page deploys to nexarctechnologies.com (Vercel project `nexarc-web`). Other branches get preview URLs.
+
 Without Supabase/Resend keys, form submissions are printed to the server console in development. In production the forms refuse to accept a lead until at least one of them is configured, so nothing is silently lost.
 
 ## Editing content
