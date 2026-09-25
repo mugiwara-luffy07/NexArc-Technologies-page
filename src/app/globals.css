@@ -206,6 +206,21 @@
   }
 }
 
+/* Soft page entrance on navigation (app/template.tsx). Starts at 0.6 opacity, never 0,
+   so the largest paint is not delayed. */
+.page-in {
+  animation: page-in 0.28s var(--ease-arc) both;
+}
+@keyframes page-in {
+  from { opacity: 0.6; transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+/* in-page jumps (e.g. /products#waitlist) land below the sticky header */
+[id] { scroll-margin-top: 5.5rem; }
+
 /* Hero mark: tile settles, arc draws, dot lands */
 .hero-arc-tile {
   transform-box: fill-box;

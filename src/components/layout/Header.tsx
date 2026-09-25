@@ -77,7 +77,13 @@ export function Header() {
         )}
         style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
-        <div className="gutter mx-auto flex h-16 max-w-[1320px] items-center gap-4 lg:h-[72px]">
+        <div
+          className={clsx(
+            "gutter mx-auto flex h-16 max-w-[1320px] items-center gap-4 transition-[height] duration-300 ease-[var(--ease-arc)]",
+            // compacts a little once the page has scrolled (desktop only; the mobile sheet is anchored to 4rem)
+            scrolled ? "lg:h-16" : "lg:h-[72px]",
+          )}
+        >
           <Logo />
 
           <nav aria-label="Primary" className="ml-auto hidden lg:block">
@@ -87,9 +93,16 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
-                    className="relative inline-flex h-11 items-center rounded-[var(--radius-control)] px-3.5 text-[0.95rem] text-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
+                    className="group/nav relative inline-flex h-11 items-center rounded-[var(--radius-control)] px-3.5 text-[0.95rem] text-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
                   >
                     {item.label}
+                    {/* hover underline grows from the centre; the active page shows the dot instead */}
+                    {!isActive(item.href) && (
+                      <span
+                        aria-hidden
+                        className="absolute inset-x-3.5 bottom-2 h-px origin-center scale-x-0 bg-accent transition-transform duration-300 ease-[var(--ease-arc)] group-hover/nav:scale-x-100"
+                      />
+                    )}
                     {/* the dot from the mark marks the active page */}
                     <span
                       aria-hidden
