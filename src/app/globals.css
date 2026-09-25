@@ -15,6 +15,7 @@
   --canvas: #ededeb;
   --surface: #ffffff;
   --line: #dcdcd8;
+  --dots: #c9c9c3;
   --muted: #44444a;
   --subtle: #66666e;
   --accent: #ff6a2b;
@@ -31,6 +32,7 @@
   --canvas: #1c1c1f;
   --surface: #202024;
   --line: #2e2e33;
+  --dots: #3a3a40;
   --muted: #b4b4bb;
   --subtle: #8e8e96;
   --accent: #ff7e45;
@@ -138,7 +140,7 @@
 
   /* Faint dot grid, fading out from one side. Texture, not decoration. */
   .bg-dots {
-    background-image: radial-gradient(var(--line) 1.1px, transparent 1.1px);
+    background-image: radial-gradient(var(--dots) 1.2px, transparent 1.3px);
     background-size: 22px 22px;
     -webkit-mask-image: radial-gradient(ellipse 70% 80% at 80% 40%, #000 20%, transparent 75%);
     mask-image: radial-gradient(ellipse 70% 80% at 80% 40%, #000 20%, transparent 75%);

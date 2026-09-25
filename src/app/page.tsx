@@ -20,7 +20,9 @@ export default function Home() {
   return (
     <>
       {/* Hero: asymmetric split, text left, animated mark right */}
-      <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 pb-16 pt-10 sm:pt-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:py-12">
+      <section className="relative">
+        <div aria-hidden className="bg-dots pointer-events-none absolute inset-0" />
+        <div className="gutter relative mx-auto grid max-w-[1320px] items-center gap-10 pb-16 pt-10 sm:pt-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:py-12">
         <div className="lg:col-span-8">
           <h1 className="text-display-hero max-w-[20ch] text-balance">
             Software, apps and SaaS products, <span className="text-accent-text">built to ship.</span>
@@ -39,6 +41,7 @@ export default function Home() {
         </div>
         <div className="flex justify-start lg:col-span-4 lg:justify-end">
           <HeroArc className="w-[min(40vw,10rem)] drop-shadow-[0_30px_40px_rgb(20_20_22/0.18)] sm:w-[12rem] lg:w-[min(100%,20rem)]" />
+        </div>
         </div>
       </section>
 
