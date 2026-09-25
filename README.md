@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NexArc Technologies website
 
-## Getting Started
-
-First, run the development server:
+Marketing site for NexArc Technologies. Next.js 15 (App Router), Tailwind CSS v4, MDX content, Supabase + Resend for leads, deployed on Vercel.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
+npm run build        # production build
+npm run test:e2e     # Playwright on Desktop Chrome, iPhone 14, Pixel 7, iPad
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without Supabase/Resend keys, form submissions are printed to the server console in development. In production the forms refuse to accept a lead until at least one of them is configured, so nothing is silently lost.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Editing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where |
+|---|---|
+| Services | `content/services/*.mdx` (frontmatter: title, summary, deliverables, stack, faq, optional `startingFrom`) |
+| Case studies | `content/work/*.mdx` (+ screenshots in `public/work/`, `cover` and `coverTall` in frontmatter) |
+| Products | `content/products/*.mdx` (`status: live` or `soon`) |
+| Contact details, nav, tagline | `src/lib/site.ts` |
+| Brand tokens (colours, radius, type scale) | `src/app/globals.css` |
+| Form options (budgets, timelines, tracks) | `src/lib/validators.ts` |
 
-## Learn More
+Search the repo for `TODO(content)` and `TODO(legal)` to find everything still waiting on real content.
 
-To learn more about Next.js, take a look at the following resources:
+Writing rules for site copy: no em or en dashes (the tests fail on them), no invented stats or testimonials, one label per call to action ("Start a project" for contact).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Going live
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 1. Supabase (lead storage)
+1. Create a project at supabase.com.
+2. SQL Editor: run `supabase/migrations/0001_leads.sql`. It creates the `leads` table and a private `resumes` bucket.
+3. Project Settings > API: copy the Project URL and the `service_role` key. The service role key is server-only; never put it in a `NEXT_PUBLIC_` variable.
+4. Leads appear in Table Editor > `leads`. Change `status` (new / contacted / won / lost) as you follow up.
 
-## Deploy on Vercel
+### 2. Resend (email notifications)
+1. Create an account at resend.com and add the domain `nexarctechnologies.com`.
+2. Add the DNS records Resend shows (SPF, DKIM, and a DMARC record) in GoDaddy > DNS.
+3. Create an API key.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Business email
+Make sure `sriakash@nexarctechnologies.com` actually receives mail (Zoho Mail free plan or Google Workspace, MX records in GoDaddy). Lead notifications go there.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Cloudflare Turnstile (spam protection)
+Create a Turnstile widget for the domain and copy the site key and secret key.
+
+### 5. Vercel
+1. Push this folder to a GitHub repository and import it in Vercel.
+2. Add the variables from `.env.example` in Project > Settings > Environment Variables.
+3. Deploy. Every pull request gets a preview URL.
+
+### 6. Domain (GoDaddy to Vercel)
+1. Vercel > Project > Settings > Domains: add `nexarctechnologies.com` and `www.nexarctechnologies.com`.
+2. GoDaddy > DNS:
+   - `A` record, host `@`, value `76.76.21.21`
+   - `CNAME` record, host `www`, value `cname.vercel-dns.com`
+   - Keep the MX and Resend TXT records.
+3. Wait for Vercel to show both domains as valid (HTTPS is automatic).
+
+### 7. After launch
+- Google Search Console: verify the domain, submit `https://nexarctechnologies.com/sitemap.xml`.
+- Google Business Profile for local search.
+- Send a real test brief from the live site and check the Supabase row and both emails.
+- Paste the link into WhatsApp and LinkedIn to check the preview image.

@@ -1,0 +1,32 @@
+---
+title: A booking CRM that speaks Tamil dates
+client: SSS Catering, Gobichettipalayam
+summary: Bookings, Tamil calendar dates, halls and payments for a wedding catering business, on phone and computer.
+services: [CRM, Custom platforms]
+stack: [Next.js, Supabase, PostgreSQL, Vercel, Playwright]
+year: "2026"
+order: 1
+featured: true
+cover: /work/sss-catering-crm.jpg
+coverTall: /work/sss-catering-crm-mobile.jpg
+url: https://ssscatering.vercel.app
+---
+
+## The problem
+
+SSS Catering takes most of its bookings over the phone, for weddings and functions fixed by the Tamil calendar. Details were written in notebooks: the Tamil date, the hall, the headcount, the advance paid. Checking whether a date was free meant flipping pages, and payment follow-ups depended on memory.
+
+## What we built
+
+A CRM shaped around how the owner already works.
+
+- **Type the booking the way you heard it.** A line like "Purattasi 11 marriage Ravi, Sri Lakshmi Mahal Erode, 750 people, 2.5L, adv 50k" fills the whole booking form.
+- **Tamil date first.** Pick the Tamil month and day; the English date shows underneath. Booked days are marked, and a same-day clash shows a warning.
+- **Remembers halls.** Choose a hall used before and the town, address and map link fill in.
+- **Money in plain words.** Type 2.5L, 50k or 1,20,000. Rate times headcount fills the total and the balance is worked out.
+- **One tap actions.** Call, WhatsApp confirmation, payment reminder, directions and calendar entries from any booking.
+- **Needs attention.** No advance yet, still tentative, balance due this week, event tomorrow. Listed every morning.
+
+## How it is built
+
+Next.js on Vercel with a Supabase database, email and password sign-in limited to approved staff, and automated tests for the Tamil calendar, the booking parser and the full booking flow on phone and laptop browsers.

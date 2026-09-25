@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
+/* Dark mode is driven by [data-theme] on <html>, set before paint in layout.tsx */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+  NexArc brand tokens.
+  Paper dominant, ink secondary, arc orange as the single accent.
+  --accent is for graphics and large marks; --accent-text is the AA-safe
+  variant for orange text on paper (#FF6A2B on paper is only ~2.7:1).
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f7f7f5;
+  --ink: #141416;
+  --canvas: #ededeb;
+  --surface: #ffffff;
+  --line: #dcdcd8;
+  --muted: #44444a;
+  --subtle: #66666e;
+  --accent: #ff6a2b;
+  --accent-text: #bf4410;
+  --on-accent: #141416;
+  --btn-bg: #141416;
+  --btn-fg: #f7f7f5;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #141416;
+  --ink: #f7f7f5;
+  --canvas: #1c1c1f;
+  --surface: #202024;
+  --line: #2e2e33;
+  --muted: #b4b4bb;
+  --subtle: #8e8e96;
+  --accent: #ff7e45;
+  --accent-text: #ff7e45;
+  --on-accent: #141416;
+  --btn-bg: #f7f7f5;
+  --btn-fg: #141416;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+  --color-btn-bg: var(--btn-bg);
+  --color-btn-fg: var(--btn-fg);
+
+  /* Brand constants that never flip with the theme */
+  --color-brand-ink: #141416;
+  --color-brand-paper: #f7f7f5;
+  --color-brand-orange: #ff6a2b;
+  --color-brand-orange-dark: #ff7e45;
+
+  --font-sans: var(--font-grotesk);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-jetbrains);
+
+  /* Shape rule: controls 8px, cards/media 16px */
+  --radius-control: 8px;
+  --radius-card: 16px;
+
+  --ease-arc: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-grotesk), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* iOS zooms into inputs under 16px */
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1rem);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Fluid display scale; never a fixed pixel size that overflows on phones */
+  /* Hero: sized so the headline holds to two lines on desktop */
+  .text-display-hero {
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.25rem, 1.2rem + 3.3vw, 3.9rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+  .text-display-xl {
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.25rem, 1.3rem + 4.2vw, 4.75rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+  .text-display-lg {
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.875rem, 1.3rem + 2.6vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .text-display-md {
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .gutter {
+    padding-inline: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  }
+
+  .prose-nexarc {
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+  .prose-nexarc > * + * {
+    margin-top: 1.1em;
+  }
+  .prose-nexarc h2 {
+    color: var(--ink);
+    font-family: var(--font-syne), sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.75rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-top: 2.2em;
+  }
+  .prose-nexarc h3 {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-top: 1.8em;
+  }
+  .prose-nexarc strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .prose-nexarc ul {
+    list-style: none;
+    padding: 0;
+  }
+  .prose-nexarc ul li {
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  .prose-nexarc ul li + li {
+    margin-top: 0.5em;
+  }
+  .prose-nexarc ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  .prose-nexarc a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
