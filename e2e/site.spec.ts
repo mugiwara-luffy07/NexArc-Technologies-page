@@ -21,10 +21,14 @@ for (const route of routes) {
   });
 }
 
-test("unknown route shows the branded 404", async ({ page }) => {
+test("unknown route shows the full-screen 404 without site chrome", async ({ page }) => {
   const res = await page.goto("/does-not-exist");
   expect(res?.status()).toBe(404);
-  await expect(page.getByRole("heading", { name: /off the arc/i })).toBeVisible();
+  await expect(page.getByText("This page is off the arc.")).toBeVisible();
+  await expect(page.getByRole("banner")).toHaveCount(0);
+  await expect(page.locator("footer")).toHaveCount(0);
+  await page.getByRole("link", { name: "Go home" }).click();
+  await expect(page).toHaveURL(/\/$/);
 });
 
 test("primary navigation works", async ({ page, isMobile }) => {

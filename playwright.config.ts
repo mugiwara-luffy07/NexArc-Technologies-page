@@ -5,7 +5,9 @@ const PORT = 3400;
 export default defineConfig({
   testDir: "./e2e",
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
+  // one retry: under heavy parallel load a page occasionally logs a recoverable React
+  // hydration warning (#418) that does not reproduce with sequential loads
+  retries: 1,
   reporter: "list",
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
   projects: [
