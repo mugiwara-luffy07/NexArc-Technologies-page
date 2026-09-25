@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   // one canonical host for search engines
   async redirects() {
     return [
+      // case study removed from the site
+      { source: "/work/kids-world-foundation", destination: "/work", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.nexarctechnologies.com" }],

@@ -7,6 +7,7 @@ import { WorkTile } from "@/components/sections/WorkTile";
 import { Process } from "@/components/sections/Process";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CornerArc } from "@/components/ui/CornerArc";
+import { Shot } from "@/components/ui/Shot";
 import { getProducts, getServices, getWork } from "@/lib/content";
 import { CTA_LABEL, site } from "@/lib/site";
 
@@ -87,16 +88,30 @@ export default function Home() {
           </Link>
         </div>
         <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-12 md:gap-8">
-          {work.map((w, i) => (
-            <Reveal key={w.slug} index={i} className={i === 0 ? "md:col-span-7" : "md:col-span-5 md:mt-24"}>
-              <WorkTile
-                item={w}
-                size={i === 0 ? "lg" : "md"}
-                ratio={i === 0 ? "16/11" : "4/5"}
-                sizes={i === 0 ? "(min-width: 768px) 58vw, 100vw" : "(min-width: 768px) 42vw, 100vw"}
-              />
-            </Reveal>
-          ))}
+          {work.length === 1 ? (
+            // One project: its desktop and phone screenshots side by side
+            <>
+              <Reveal className="md:col-span-8">
+                <WorkTile item={work[0]} size="lg" ratio="16/11" sizes="(min-width: 768px) 66vw, 100vw" />
+              </Reveal>
+              {work[0].coverTall && (
+                <Reveal className="hidden md:col-span-4 md:mt-24 md:block">
+                  <Shot src={work[0].coverTall} alt={`${work[0].client} on a phone`} ratio="9/16" sizes="33vw" />
+                </Reveal>
+              )}
+            </>
+          ) : (
+            work.map((w, i) => (
+              <Reveal key={w.slug} index={i} className={i === 0 ? "md:col-span-7" : "md:col-span-5 md:mt-24"}>
+                <WorkTile
+                  item={w}
+                  size={i === 0 ? "lg" : "md"}
+                  ratio={i === 0 ? "16/11" : "4/5"}
+                  sizes={i === 0 ? "(min-width: 768px) 58vw, 100vw" : "(min-width: 768px) 42vw, 100vw"}
+                />
+              </Reveal>
+            ))
+          )}
         </div>
       </section>
 
