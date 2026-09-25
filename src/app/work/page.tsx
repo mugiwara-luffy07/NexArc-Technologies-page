@@ -22,7 +22,7 @@ export default function WorkPage() {
         <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
           {work.map((w, i) => (
             <Reveal key={w.slug} index={i % 2} className={i % 2 === 1 ? "md:mt-20" : ""}>
-              <WorkTile item={w} size="lg" ratio="16/11" sizes="(min-width: 768px) 50vw, 100vw" priority={i < 2} />
+              <WorkTile item={w} headingLevel="h2" size="lg" ratio="16/11" sizes="(min-width: 768px) 50vw, 100vw" priority={i < 2} />
             </Reveal>
           ))}
         </div>

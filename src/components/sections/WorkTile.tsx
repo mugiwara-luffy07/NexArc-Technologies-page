@@ -10,13 +10,17 @@ export function WorkTile({
   size = "md",
   sizes,
   priority,
+  headingLevel = "h3",
 }: {
   item: Work;
   ratio?: string;
   size?: "lg" | "md";
   sizes?: string;
   priority?: boolean;
+  /** h2 when the tile sits directly under the page h1 */
+  headingLevel?: "h2" | "h3";
 }) {
+  const Heading = headingLevel;
   const [w, h] = ratio.split("/").map(Number);
   const tall = h > w;
   return (
@@ -34,14 +38,14 @@ export function WorkTile({
       </div>
       <div className="mt-4 flex flex-col gap-1.5">
         <p className="font-mono text-xs text-subtle">{item.client}</p>
-        <h3
+        <Heading
           className={clsx(
             "font-display font-bold tracking-tight text-balance",
             size === "lg" ? "text-[clamp(1.35rem,1.1rem+1vw,1.9rem)] leading-[1.12]" : "text-[1.3rem] leading-[1.18]",
           )}
         >
           {item.title}
-        </h3>
+        </Heading>
         <p className="max-w-[52ch] text-muted">{item.summary}</p>
       </div>
     </Link>
