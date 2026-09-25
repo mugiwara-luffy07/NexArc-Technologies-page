@@ -7,7 +7,6 @@ import { WorkTile } from "@/components/sections/WorkTile";
 import { Process } from "@/components/sections/Process";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CornerArc } from "@/components/ui/CornerArc";
-import { Shot } from "@/components/ui/Shot";
 import { getProducts, getServices, getWork } from "@/lib/content";
 import { CTA_LABEL, site } from "@/lib/site";
 
@@ -89,17 +88,9 @@ export default function Home() {
         </div>
         <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-12 md:gap-8">
           {work.length === 1 ? (
-            // One project: its desktop and phone screenshots side by side
-            <>
-              <Reveal className="md:col-span-8">
-                <WorkTile item={work[0]} size="lg" ratio="16/11" sizes="(min-width: 768px) 66vw, 100vw" />
-              </Reveal>
-              {work[0].coverTall && (
-                <Reveal className="hidden md:col-span-4 md:mt-24 md:block">
-                  <Shot src={work[0].coverTall} alt={`${work[0].client} on a phone`} ratio="9/16" sizes="33vw" />
-                </Reveal>
-              )}
-            </>
+            <Reveal className="md:col-span-12">
+              <WorkTile item={work[0]} compact />
+            </Reveal>
           ) : (
             work.map((w, i) => (
               <Reveal key={w.slug} index={i} className={i === 0 ? "md:col-span-7" : "md:col-span-5 md:mt-24"}>
