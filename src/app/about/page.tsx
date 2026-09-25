@@ -70,15 +70,15 @@ export default function AboutPage() {
 
       {/* Founder: photo slot + short bio */}
       <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 py-16 md:grid-cols-12 md:py-20">
-        <div className="md:col-span-5">
+        <div className="w-full max-w-[17rem] md:col-span-4 md:max-w-[19rem]">
           <Shot
             src="/team/sri-akash.jpg"
             alt={`${site.founder}, founder of ${site.name}`}
             ratio="4/5"
-            sizes="(min-width: 768px) 40vw, 100vw"
+            sizes="(min-width: 768px) 304px, 272px"
           />
         </div>
-        <div className="md:col-span-6 md:col-start-7">
+        <div className="md:col-span-7 md:col-start-5">
           <h2 className="text-display-lg">{site.founder}</h2>
           <p className="mt-2 text-lg text-ink">Founder</p>
           <p className="mt-5 max-w-[48ch] text-muted">

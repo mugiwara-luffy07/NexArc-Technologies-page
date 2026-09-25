@@ -5,7 +5,6 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { WorkTile } from "@/components/sections/WorkTile";
 import { Process } from "@/components/sections/Process";
-import { ToolStrip } from "@/components/sections/ToolStrip";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { CornerArc } from "@/components/ui/CornerArc";
 import { getProducts, getServices, getWork } from "@/lib/content";
@@ -20,36 +19,31 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero: asymmetric split, text left, animated mark right, faint dot grid behind */}
-      <section className="relative">
-        <div aria-hidden className="bg-dots pointer-events-none absolute inset-0" />
-        <div className="gutter relative mx-auto grid max-w-[1320px] items-center gap-10 pb-14 pt-10 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pb-20 lg:pt-20">
-          <div className="lg:col-span-8">
-            <h1 className="text-display-hero max-w-[20ch] text-balance">
-              Software, apps and SaaS products, <span className="text-accent-text">built to ship.</span>
-            </h1>
-            <p className="mt-5 max-w-[46ch] text-lg text-muted">
-              We design and build websites, CRMs, e-commerce stores and custom platforms for businesses across Tamil Nadu and India.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact" size="lg">
-                {CTA_LABEL}
-              </ButtonLink>
-              <ButtonLink href="/work" variant="secondary" size="lg">
-                See our work
-              </ButtonLink>
-            </div>
+      {/* Hero: asymmetric split, text left, animated mark right */}
+      <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 pb-16 pt-10 sm:pt-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:py-12">
+        <div className="lg:col-span-8">
+          <h1 className="text-display-hero max-w-[20ch] text-balance">
+            Software, apps and SaaS products, <span className="text-accent-text">built to ship.</span>
+          </h1>
+          <p className="mt-6 max-w-[46ch] text-lg text-muted sm:text-xl">
+            We design and build websites, CRMs, e-commerce stores and custom platforms for businesses across Tamil Nadu and India.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <ButtonLink href="/contact" size="lg">
+              {CTA_LABEL}
+            </ButtonLink>
+            <ButtonLink href="/work" variant="secondary" size="lg">
+              See our work
+            </ButtonLink>
           </div>
-          <div className="flex justify-start lg:col-span-4 lg:justify-end">
-            <HeroArc className="w-[min(34vw,8.5rem)] drop-shadow-[0_24px_32px_rgb(20_20_22/0.16)] sm:w-[10rem] lg:w-[min(100%,14rem)]" />
-          </div>
+        </div>
+        <div className="flex justify-start lg:col-span-4 lg:justify-end">
+          <HeroArc className="w-[min(40vw,10rem)] drop-shadow-[0_30px_40px_rgb(20_20_22/0.18)] sm:w-[12rem] lg:w-[min(100%,20rem)]" />
         </div>
       </section>
 
-      <ToolStrip />
-
       {/* Services: sticky heading with an indexed list */}
-      <section>
+      <section className="border-t border-line">
         <div className="gutter mx-auto grid max-w-[1320px] gap-10 py-14 md:py-20 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">

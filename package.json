@@ -22,7 +22,6 @@
     "react-dom": "19.1.0",
     "resend": "^6.28.1",
     "server-only": "^0.0.1",
-    "simple-icons": "^16.32.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
