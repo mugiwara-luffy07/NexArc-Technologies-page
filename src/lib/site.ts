@@ -3,7 +3,7 @@ export const site = {
   shortName: "NexArc",
   tagline: "The Next Arc of Growth.",
   description:
-    "NexArc Technologies builds websites, CRMs, e-commerce stores and custom SaaS platforms for growing businesses in India.",
+    "NexArc Technologies is a web development and software company in Tamil Nadu, India. We build websites, CRMs, e-commerce stores, mobile apps and SaaS platforms for businesses across Tamil Nadu and India.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexarctechnologies.com",
   email: "sriakash@nexarctechnologies.com",
   phone: "+91 9994155580",
@@ -11,8 +11,13 @@ export const site = {
   whatsappHref:
     "https://wa.me/919994155580?text=Hi%20NexArc%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   founder: "Sri Akash",
-  // TODO(content): confirm city/region for local SEO and footer
   locality: "Tamil Nadu, India",
+  /** Service area for local SEO. Remote-first: we work with clients anywhere in India. */
+  areas: [
+    "Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Erode", "Tiruppur",
+    "Gobichettipalayam", "Tirunelveli", "Thoothukudi", "Nagercoil", "Dindigul", "Karur",
+    "Namakkal", "Thanjavur", "Vellore", "Hosur", "Pollachi", "Virudhunagar", "Sivakasi", "Kanyakumari", "Ramanathapuram",
+  ],
   social: {
     linkedin: "", // TODO(content): add LinkedIn URL
     instagram: "", // TODO(content): add Instagram URL

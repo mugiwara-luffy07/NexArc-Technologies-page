@@ -7,8 +7,8 @@ import { getServices } from "@/lib/content";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "Services",
-  description: "Websites, CRMs, e-commerce stores, custom SaaS platforms and mobile apps, designed and built by NexArc Technologies.",
+  title: "Web, App and Software Development Services in Tamil Nadu",
+  description: "Website development, custom CRM, e-commerce, mobile apps and SaaS development for businesses across Tamil Nadu and India. Designed and built by NexArc Technologies.",
   path: "/services",
 });
 

@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "About",
-  description: "NexArc Technologies is a software studio building websites, CRMs, e-commerce and SaaS for growing businesses.",
+  description: "NexArc Technologies is a web development and software company in Tamil Nadu, India, working with businesses from Chennai to Kanyakumari and across India.",
   path: "/about",
 });
 
@@ -86,6 +86,26 @@ export default function AboutPage() {
               {stack.map((t) => (
                 <li key={t} className="rounded-[var(--radius-control)] border border-line px-3 py-1.5 text-sm">
                   {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Service area: visible text, not just schema */}
+      <section className="border-t border-line">
+        <div className="gutter mx-auto grid max-w-[1320px] gap-8 py-16 md:py-24 lg:grid-cols-12">
+          <h2 className="text-display-lg lg:col-span-4">Where we work</h2>
+          <div className="lg:col-span-7 lg:col-start-6">
+            <p className="text-lg text-muted">
+              We work with businesses across Tamil Nadu, from Chennai to Kanyakumari, and with clients anywhere in India. Most projects run
+              remotely over calls and WhatsApp, with in-person visits when a project needs them.
+            </p>
+            <ul className="mt-8 flex flex-wrap gap-2">
+              {site.areas.map((a) => (
+                <li key={a} className="rounded-[var(--radius-control)] border border-line px-3 py-1.5 text-sm text-muted">
+                  {a}
                 </li>
               ))}
             </ul>

@@ -10,11 +10,20 @@ export function pageMeta({ title, description, path }: { title: string; descript
   };
 }
 
+const areaServed = [
+  { "@type": "State", name: "Tamil Nadu" },
+  { "@type": "Country", name: "India" },
+  ...site.areas.map((name) => ({ "@type": "City", name })),
+];
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": ["Organization", "ProfessionalService"],
+    "@id": `${site.url}/#organization`,
     name: site.name,
+    alternateName: ["NexArc", "Nexarc Technologies"],
+    description: site.description,
     url: site.url,
     logo: `${site.url}/brand/nexarc-app-icon-512.png`,
     email: site.email,
@@ -22,8 +31,38 @@ export function organizationJsonLd() {
     slogan: site.tagline,
     founder: { "@type": "Person", name: site.founder },
     address: { "@type": "PostalAddress", addressRegion: "Tamil Nadu", addressCountry: "IN" },
-    areaServed: "IN",
+    areaServed,
+    knowsAbout: ["Website development", "Web design", "CRM development", "E-commerce development", "Mobile app development", "SaaS development", "Custom software development"],
     sameAs: Object.values(site.social).filter(Boolean),
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
+    name: site.name,
+    alternateName: "NexArc",
+    url: site.url,
+    inLanguage: "en-IN",
+    publisher: { "@id": `${site.url}/#organization` },
+  };
+}
+
+export function faqJsonLd(faq: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  };
+}
+
+export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: `${site.url}${it.path}` })),
   };
 }
 
@@ -34,7 +73,8 @@ export function serviceJsonLd(s: { title: string; summary: string; slug: string 
     name: s.title,
     description: s.summary,
     url: `${site.url}/services/${s.slug}`,
-    provider: { "@type": "Organization", name: site.name, url: site.url },
-    areaServed: "IN",
+    serviceType: s.title,
+    provider: { "@id": `${site.url}/#organization` },
+    areaServed,
   };
 }

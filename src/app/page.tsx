@@ -26,7 +26,7 @@ export default function Home() {
             Software, apps and SaaS products, <span className="text-accent-text">built to ship.</span>
           </h1>
           <p className="mt-6 max-w-[46ch] text-lg text-muted sm:text-xl">
-            We design and build websites, CRMs, e-commerce stores and custom platforms for businesses ready to grow.
+            We design and build websites, CRMs, e-commerce stores and custom platforms for businesses across Tamil Nadu and India.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/contact" size="lg">

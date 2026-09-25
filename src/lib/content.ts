@@ -9,6 +9,8 @@ export type Service = {
   title: string;
   short: string;
   summary: string;
+  seoTitle?: string;
+  seoDescription?: string;
   order: number;
   startingFrom?: string;
   deliverables: string[];

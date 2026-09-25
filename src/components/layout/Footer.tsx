@@ -13,7 +13,8 @@ export function Footer() {
         <div className="md:col-span-6">
           <Logo />
           <p className="mt-5 max-w-sm text-muted">
-            Websites, CRMs, e-commerce and custom platforms for growing businesses. {site.tagline}
+            Web development and software company in Tamil Nadu, India. Websites, CRMs, e-commerce, apps and SaaS for businesses across
+            Tamil Nadu and India. {site.tagline}
           </p>
           <div className="mt-6 flex flex-col gap-1 text-[0.95rem]">
             <a href={`mailto:${site.email}`} className="w-fit break-all py-1.5 hover:text-accent-text">

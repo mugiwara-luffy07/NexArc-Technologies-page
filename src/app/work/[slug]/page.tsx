@@ -5,7 +5,7 @@ import { Mdx } from "@/components/content/Mdx";
 import { Shot } from "@/components/ui/Shot";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { getWork, getWorkItem } from "@/lib/content";
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMeta } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -33,6 +33,17 @@ export default async function CaseStudy({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Work", path: "/work" },
+              { name: w.client, path: `/work/${w.slug}` },
+            ]),
+          ),
+        }}
+      />
       <article>
         <header className="gutter mx-auto max-w-[1320px] pb-10 pt-10 sm:pt-14 md:pt-20">
           <nav aria-label="Breadcrumb" className="text-sm text-subtle">

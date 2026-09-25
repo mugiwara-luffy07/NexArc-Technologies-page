@@ -8,6 +8,17 @@ const nextConfig: NextConfig = {
     // internship resumes are up to 5 MB
     serverActions: { bodySizeLimit: "6mb" },
   },
+  // one canonical host for search engines
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.nexarctechnologies.com" }],
+        destination: "https://nexarctechnologies.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },

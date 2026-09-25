@@ -4,7 +4,7 @@ import { Mdx } from "@/components/content/Mdx";
 import { ButtonLink } from "@/components/ui/Button";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { getService, getServices } from "@/lib/content";
-import { pageMeta, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqJsonLd, pageMeta, serviceJsonLd } from "@/lib/seo";
 import { CTA_LABEL } from "@/lib/site";
 
 // Pre-selects the matching option in the contact brief
@@ -25,7 +25,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const s = getService((await params).slug);
   if (!s) return {};
-  return pageMeta({ title: s.title, description: s.summary, path: `/services/${s.slug}` });
+  return pageMeta({ title: s.seoTitle ?? s.title, description: s.seoDescription ?? s.summary, path: `/services/${s.slug}` });
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -35,7 +35,19 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            serviceJsonLd(s),
+            breadcrumbJsonLd([
+              { name: "Services", path: "/services" },
+              { name: s.title, path: `/services/${s.slug}` },
+            ]),
+            ...(s.faq.length ? [faqJsonLd(s.faq)] : []),
+          ]),
+        }}
+      />
 
       <section className="gutter mx-auto max-w-[1320px] pb-12 pt-10 sm:pt-14 md:pb-16 md:pt-20">
         <nav aria-label="Breadcrumb" className="text-sm text-subtle">
