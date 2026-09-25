@@ -63,7 +63,25 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-line">
+      {/* big faint wordmark. Drawn as an SVG graphic (decorative), so it is not treated as text content. */}
+      <div aria-hidden className="pointer-events-none select-none overflow-hidden">
+        <div className="gutter mx-auto max-w-[1320px]">
+          <svg viewBox="0 0 1000 205" className="block w-full text-ink/[0.05]" role="presentation">
+            <text
+              x="0"
+              y="240"
+              textLength="985"
+              lengthAdjust="spacingAndGlyphs"
+              fill="currentColor"
+              style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 700, fontSize: 262, letterSpacing: "-0.045em" }}
+            >
+              NexArc
+            </text>
+          </svg>
+        </div>
+      </div>
+
+      <div className="relative border-t border-line bg-paper">
         <div className="gutter mx-auto flex max-w-[1320px] flex-col gap-2 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.name}. {site.locality}.

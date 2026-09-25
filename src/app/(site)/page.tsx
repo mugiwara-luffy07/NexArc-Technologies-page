@@ -61,9 +61,9 @@ export default function Home() {
               <li key={s.slug} className="border-b border-line first:border-t">
                 <Link
                   href={`/services/${s.slug}`}
-                  className="group grid grid-cols-[1fr_auto] items-start gap-x-6 gap-y-2 py-5 sm:py-6 md:grid-cols-[minmax(0,13rem)_1fr_auto]"
+                  className="group -mx-3 my-1 grid grid-cols-[1fr_auto] items-start gap-x-6 gap-y-2 rounded-[var(--radius-control)] px-3 py-4 transition-colors duration-300 ease-[var(--ease-arc)] sm:py-5 md:grid-cols-[minmax(0,13rem)_1fr_auto] [@media(hover:hover)]:hover:bg-canvas"
                 >
-                  <span className="font-display text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-tight font-bold tracking-tight transition-colors group-hover:text-accent-text">
+                  <span className="font-display text-[clamp(1.2rem,1.05rem+0.6vw,1.5rem)] leading-tight font-bold tracking-tight transition-[color,transform] duration-300 ease-[var(--ease-arc)] group-hover:text-accent-text [@media(hover:hover)]:group-hover:translate-x-1">
                     {s.short}
                   </span>
                   <span className="col-span-2 row-start-2 max-w-[48ch] text-muted md:col-span-1 md:row-start-1 md:col-start-2 md:pt-1.5">
@@ -72,7 +72,7 @@ export default function Home() {
                   <ArrowUpRight
                     size={24}
                     aria-hidden
-                    className="mt-1.5 text-subtle transition-transform duration-300 ease-[var(--ease-arc)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink md:col-start-3"
+                    className="mt-1.5 text-subtle transition-[color,transform] duration-300 ease-[var(--ease-arc)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-text md:col-start-3"
                   />
                 </Link>
               </li>
