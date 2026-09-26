@@ -53,7 +53,7 @@ export default function InternshipsPage() {
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
                   <span className="relative inline-flex size-2 rounded-full bg-accent" />
                 </span>
-                Applications open soon
+                Stay tuned
               </p>
               <h2 className="text-display-lg mt-5">Internships opening soon</h2>
               <p className="mt-3 max-w-[48ch] text-muted">
