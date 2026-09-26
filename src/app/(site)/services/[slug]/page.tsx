@@ -84,16 +84,6 @@ export default async function ServicePage({ params }: Props) {
                 ))}
               </ul>
             </div>
-            <div>
-              <h2 className="font-mono text-xs text-subtle">Usually built with</h2>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {s.stack.map((t) => (
-                  <li key={t} className="rounded-[var(--radius-control)] border border-line px-3 py-1.5 text-sm">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </aside>
         </div>
       </section>
