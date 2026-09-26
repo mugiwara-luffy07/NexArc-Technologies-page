@@ -39,9 +39,17 @@ export async function verifyTurnstile(token: FormDataEntryValue | null, ip: stri
 }
 
 function supabase() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
+  const raw = process.env.SUPABASE_URL?.trim();
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!raw || !key) return null;
+  // Keep only the project origin: a pasted ".../rest/v1/" or trailing "/" breaks every request
+  let url: string;
+  try {
+    url = new URL(raw).origin;
+  } catch {
+    console.error("[leads] SUPABASE_URL is not a valid URL");
+    return null;
+  }
   return createClient(url, key, { auth: { persistSession: false } });
 }
 
