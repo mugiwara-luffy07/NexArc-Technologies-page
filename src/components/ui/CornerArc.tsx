@@ -7,7 +7,7 @@ import { clsx } from "clsx";
  * leaves an even ~5px gap from the edge. Place it with `-left-2 -top-2` on a `relative` wrapper.
  * Parent needs the `group` class. Triggered by hover (pointer devices) and focus-visible.
  */
-export function CornerArc({ className }: { className?: string }) {
+export function CornerArc({ className, always = false }: { className?: string; always?: boolean }) {
   return (
     <svg aria-hidden width="40" height="40" viewBox="0 0 40 40" className={clsx("pointer-events-none absolute overflow-visible", className)}>
       <path
@@ -17,6 +17,7 @@ export function CornerArc({ className }: { className?: string }) {
         strokeWidth="3"
         strokeLinecap="round"
         className={clsx(
+          always && "!opacity-100 ![stroke-dashoffset:0]",
           // opacity hides the round cap, which would otherwise show as a dot at offset 1
           "stroke-accent opacity-0 [stroke-dasharray:1] [stroke-dashoffset:1]",
           "transition-[stroke-dashoffset,opacity] duration-700 ease-[var(--ease-arc)]",
