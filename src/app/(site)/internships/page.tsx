@@ -55,7 +55,7 @@ export default function InternshipsPage() {
                 </span>
                 Stay tuned
               </p>
-              <h2 className="text-display-lg mt-5">Internships opening soon</h2>
+              <h2 className="text-display-lg mt-5">Internships opening <span className="text-accent-text">soon</span></h2>
               <p className="mt-3 max-w-[48ch] text-muted">
                 We will announce our next internship openings here. Leave your email to hear first when applications open.
               </p>
