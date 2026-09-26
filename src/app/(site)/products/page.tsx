@@ -27,7 +27,7 @@ export default function ProductsPage() {
         <section key={p.slug} className="gutter mx-auto max-w-[1320px] pb-14 md:pb-20">
           <Link href={`/products/${p.slug}`} className="group grid items-center gap-8 rounded-[var(--radius-card)] bg-surface p-5 ring-1 ring-line sm:p-8 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-7">
-              <Shot src={p.cover} alt={`${p.name} screenshot`} ratio="16/10" sizes="(min-width: 1024px) 55vw, 100vw" />
+              <Shot src={p.cover} alt={`${p.name}, ${p.tagline}`} ratio="16/10" sizes="(min-width: 1024px) 55vw, 100vw" />
             </div>
             <div className="lg:col-span-5">
               <p className="font-mono text-xs text-accent-text">Live now</p>

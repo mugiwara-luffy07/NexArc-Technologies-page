@@ -57,7 +57,7 @@ export default async function ProductPage({ params }: Props) {
           </div>
         </div>
         <div className="lg:col-span-6">
-          <Shot src={p.cover} alt={`${p.name} screenshot`} ratio="4/3" priority sizes="(min-width: 1024px) 50vw, 100vw" />
+          <Shot src={p.cover} alt={`${p.name}, ${p.tagline}`} ratio="4/3" priority sizes="(min-width: 1024px) 50vw, 100vw" />
         </div>
       </section>
       <section className="border-t border-line">
