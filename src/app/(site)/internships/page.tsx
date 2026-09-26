@@ -55,9 +55,9 @@ export default function InternshipsPage() {
                 </span>
                 Applications open soon
               </p>
-              <h2 className="text-display-lg mt-5">Your seat in the next batch is <span className="text-accent-text">almost ready</span></h2>
+              <h2 className="text-display-lg mt-5">Internships opening soon</h2>
               <p className="mt-3 max-w-[48ch] text-muted">
-                Real client projects are lining up for our next interns. Drop your email and be the first to know when applications open.
+                We will announce our next internship openings here. Leave your email to hear first when applications open.
               </p>
               <div className="mt-7">
                 <NotifyForm topic="Internship openings" success="Done. We will email you when internship applications open." />
