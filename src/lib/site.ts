@@ -11,6 +11,8 @@ export const site = {
   whatsappHref:
     "https://wa.me/919994155580?text=Hi%20NexArc%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   founder: "Sri Akash",
+  /** Flip to true when hiring interns: shows the application form again (and the server accepts applications). */
+  internshipsOpen: false,
   locality: "Tamil Nadu, India",
   /** Legal identity, shown on the legal pages and in the footer */
   legal: {
@@ -27,7 +29,7 @@ export const site = {
   ],
   social: {
     linkedin: "", // TODO(content): add LinkedIn URL
-    instagram: "", // TODO(content): add Instagram URL
+    instagram: "https://www.instagram.com/nexarctechnologies/",
   },
 } as const;
 

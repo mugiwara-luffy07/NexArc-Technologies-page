@@ -1,5 +1,8 @@
 import { PageIntro } from "@/components/content/PageIntro";
 import { InternshipForm } from "@/components/forms/InternshipForm";
+import { NotifyForm } from "@/components/forms/NotifyForm";
+import { HeroArc } from "@/components/brand/HeroArc";
+import { site } from "@/lib/site";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta({
@@ -27,7 +30,7 @@ const tracks = [
 ];
 
 const steps = [
-  { verb: "Apply", text: "Send the form below with a link to your work." },
+  { verb: "Apply", text: "Send an application with a link to your work." },
   { verb: "Small task", text: "A short, real-world task in your track, done in your own time." },
   { verb: "Chat", text: "A 30 minute call about your task and what you want to learn." },
   { verb: "Start", text: "Join a live project with a mentor reviewing your work." },
@@ -40,9 +43,33 @@ export default function InternshipsPage() {
         Our interns work on live client projects, not practice tasks. You get code reviews, real deadlines and work you can show.
       </PageIntro>
 
+      {!site.internshipsOpen && (
+        <section id="apply" className="gutter mx-auto max-w-[1320px] scroll-mt-24 pb-14 md:pb-20">
+          <div className="relative overflow-hidden rounded-[var(--radius-card)] bg-surface p-7 ring-1 ring-line sm:p-10">
+            <HeroArc className="pointer-events-none absolute -right-6 -bottom-6 hidden w-40 opacity-90 md:block lg:w-48" />
+            <div className="relative max-w-xl">
+              <p className="inline-flex items-center gap-2 rounded-full bg-canvas px-3 py-1.5 text-sm font-medium">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
+                  <span className="relative inline-flex size-2 rounded-full bg-accent" />
+                </span>
+                Applications open soon
+              </p>
+              <h2 className="text-display-lg mt-5">We are not taking interns just yet</h2>
+              <p className="mt-3 max-w-[48ch] text-muted">
+                We are getting the next batch of live projects ready. Leave your email and we will write to you the day applications open.
+              </p>
+              <div className="mt-7">
+                <NotifyForm topic="Internship openings" success="Done. We will email you when internship applications open." />
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="border-t border-line">
         <div className="gutter mx-auto max-w-[1320px] py-14 md:py-20">
-          <h2 className="text-display-lg">Tracks</h2>
+          <h2 className="text-display-lg">{site.internshipsOpen ? "Tracks" : "Tracks we will hire for"}</h2>
           <div className="mt-10 divide-y divide-line border-y border-line">
             {tracks.map((t) => (
               <div key={t.name} className="grid gap-3 py-7 md:grid-cols-12 md:gap-8">
@@ -71,6 +98,7 @@ export default function InternshipsPage() {
         </div>
       </section>
 
+      {site.internshipsOpen ? (
       <section id="apply" className="gutter mx-auto max-w-[1320px] scroll-mt-24 py-14 md:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -82,6 +110,7 @@ export default function InternshipsPage() {
           </div>
         </div>
       </section>
+      ) : null}
     </>
   );
 }

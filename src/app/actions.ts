@@ -3,6 +3,7 @@
 import { internshipSchema, projectSchema, toFieldErrors, waitlistSchema, type FormState } from "@/lib/validators";
 import { clientIp, isConfigured, notify, rateLimited, saveLead, uploadResume, verifyTurnstile, type LeadType } from "@/lib/leads";
 import type { z } from "zod";
+import { site } from "@/lib/site";
 
 const GENERIC_ERROR = "Something went wrong on our side. Please try again, or WhatsApp us.";
 
@@ -61,6 +62,9 @@ export async function joinWaitlist(_: FormState, formData: FormData) {
 const MAX_RESUME = 5 * 1024 * 1024;
 
 export async function applyInternship(_: FormState, formData: FormData) {
+  if (!site.internshipsOpen) {
+    return { status: "error", message: "Internship applications are closed right now. Please check back soon." } satisfies FormState;
+  }
   const file = formData.get("resume");
   if (file instanceof File && file.size > 0) {
     if (file.type !== "application/pdf") return { status: "error", message: "Please check the highlighted fields.", fieldErrors: { resume: "Please upload a PDF" } } satisfies FormState;

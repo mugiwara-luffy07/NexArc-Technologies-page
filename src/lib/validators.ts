@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const SERVICE_OPTIONS = ["Website", "CRM / business software", "E-commerce", "Custom platform / SaaS", "Mobile app", "Not sure yet"] as const;
-// TODO(content): align these ranges with the "starting from" prices on service pages
 export const BUDGET_OPTIONS = ["Under ₹50k", "₹50k to ₹1.5L", "₹1.5L to ₹5L", "Above ₹5L", "Not sure yet"] as const;
 export const TIMELINE_OPTIONS = ["As soon as possible", "Within 1 to 2 months", "In 3 months or more", "Flexible"] as const;
 export const INTERNSHIP_TRACKS = ["Web development", "App development", "UI/UX design"] as const;
