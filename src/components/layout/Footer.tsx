@@ -84,7 +84,7 @@ export function Footer() {
       <div className="relative border-t border-line bg-paper">
         <div className="gutter mx-auto flex max-w-[1320px] flex-col gap-2 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.name}. {site.locality}.
+            © {year} {site.name}. {site.locality}. Udyam: {site.legal.udyam}
           </p>
           <div className="flex gap-5">
             <Link href="/privacy" className="py-1 hover:text-ink">

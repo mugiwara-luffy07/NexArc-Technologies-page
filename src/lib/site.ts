@@ -12,6 +12,13 @@ export const site = {
     "https://wa.me/919994155580?text=Hi%20NexArc%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   founder: "Sri Akash",
   locality: "Tamil Nadu, India",
+  /** Legal identity, shown on the legal pages and in the footer */
+  legal: {
+    entity: "a sole proprietorship owned by Sri Akash",
+    udyam: "UDYAM-TN-07-0157133",
+    city: "Chennai",
+    grievanceOfficer: { name: "Sri Akash", role: "Founder and Proprietor", email: "sriakash@nexarctechnologies.com" },
+  },
   /** Service area for local SEO. Remote-first: we work with clients anywhere in India. */
   areas: [
     "Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Erode", "Tiruppur",
