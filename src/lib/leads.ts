@@ -109,6 +109,20 @@ function escape(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
 
+/** Branded wrapper for every email: logo on a white card (safe in dark-mode mail apps), content, footer. */
+function shell(inner: string) {
+  const logo = `${site.url}/brand/email-logo.png`;
+  return `<!doctype html><html><body style="margin:0;padding:0;background:#f7f7f5">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f7f7f5;padding:24px 12px">
+<tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e4e4e0;border-radius:16px">
+<tr><td style="padding:24px 28px 8px"><img src="${logo}" width="150" height="52" alt="NexArc Technologies" style="display:block;border:0;outline:none"/></td></tr>
+<tr><td style="padding:8px 28px 24px;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:15px;line-height:1.6;color:#141416">${inner}</td></tr>
+<tr><td style="padding:16px 28px 22px;border-top:1px solid #efefeb;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:12px;color:#66666e">
+${site.name} &middot; ${site.locality} &middot; <a href="${site.url}" style="color:#bf4410;text-decoration:none">nexarctechnologies.com</a></td></tr>
+</table></td></tr></table></body></html>`;
+}
+
 function table(data: Record<string, unknown>) {
   const rows = Object.entries(data)
     .filter(([k, v]) => v && k !== "consent")
@@ -127,7 +141,7 @@ export async function notify(type: LeadType, data: Record<string, unknown>) {
     return;
   }
   const resend = new Resend(key);
-  const from = process.env.LEADS_FROM_EMAIL ?? `NexArc Website <hello@nexarctechnologies.com>`;
+  const from = process.env.LEADS_FROM_EMAIL ?? `NexArc Technologies <hello@nexarctechnologies.com>`;
   const to = process.env.LEADS_TO_EMAIL ?? site.email;
   const email = String(data.email);
 
@@ -137,7 +151,7 @@ export async function notify(type: LeadType, data: Record<string, unknown>) {
     to,
     replyTo: email,
     subject: SUBJECTS[type](data),
-    html: `<h2 style="font-family:system-ui,sans-serif;color:#141416">${escape(SUBJECTS[type](data))}</h2>${table(data)}`,
+    html: shell(`<h2 style="margin:0 0 12px;font-size:18px;color:#141416">${escape(SUBJECTS[type](data))}</h2>${table(data)}`),
   });
   if (sent.error) throw new Error(`Resend: ${sent.error.message}`);
 
@@ -152,7 +166,9 @@ export async function notify(type: LeadType, data: Record<string, unknown>) {
       to: email,
       replyTo: to,
       subject: type === "project" ? "We got your project brief" : "We got your internship application",
-      html: `<div style="font-family:system-ui,sans-serif;font-size:15px;color:#141416;line-height:1.6"><p>Hi ${escape(firstName)},</p><p>${body}</p><p>If it is urgent, WhatsApp us on ${site.phone}.</p><p>${site.founder}<br/>${site.name}</p></div>`,
+      html: shell(
+        `<p style="margin:0 0 14px">Hi ${escape(firstName)},</p><p style="margin:0 0 14px">${body}</p><p style="margin:0 0 14px">If it is urgent, WhatsApp us on <a href="${site.whatsappHref}" style="color:#bf4410">${site.phone}</a>.</p><p style="margin:0">${site.founder}<br/><span style="color:#66666e">${site.name}</span></p>`,
+      ),
     });
     // the owner already has the lead; a failed auto-reply is only logged
     if (reply.error) console.error("[leads] auto-reply failed", reply.error.message);
