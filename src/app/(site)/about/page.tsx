@@ -106,21 +106,13 @@ export default function AboutPage() {
               {/* first-person note, built from the "Why we started" story */}
               <div className="max-w-[56ch] space-y-3 text-muted">
                 <p>
-                  Hi, I&rsquo;m Sri Akash. I started NexArc because small and growing businesses run on phone calls, notebooks and WhatsApp groups,
+                  I started NexArc because small and growing businesses run on phone calls, notebooks and WhatsApp groups,
                   and the software built for them rarely fits the way they work.
                 </p>
                 <p>
                   I lead design and engineering myself and work directly with every client, from the first call to launch, so what we build feels
                   obvious from day one.
                 </p>
-              </div>
-
-              {/* signature: name in the brand face with the arc as a swash */}
-              <div aria-hidden className="relative w-fit">
-                <p className="-rotate-2 font-display text-[1.6rem] leading-none font-bold tracking-tight text-ink">{site.founder}</p>
-                <svg viewBox="8 8 34 34" className="absolute -right-10 -top-4 size-7 rotate-12">
-                  <path d={ARC_PATH} fill="none" strokeWidth="5" strokeLinecap="round" className="stroke-accent" />
-                </svg>
               </div>
 
               <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5">
