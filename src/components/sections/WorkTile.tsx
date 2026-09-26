@@ -33,7 +33,7 @@ export function WorkTile({
         <div className="relative">
           <Shot
             src={item.cover}
-            alt={`${item.client} project screenshot`}
+            alt={`${item.client}: ${item.title}`}
             ratio="16/10"
             sizes="(min-width: 640px) 320px, 100vw"
             priority={priority}
@@ -58,7 +58,7 @@ export function WorkTile({
       <div className="relative">
         <Shot
           src={tall ? (item.coverTall ?? item.cover) : item.cover}
-          alt={`${item.client} project screenshot`}
+          alt={`${item.client}: ${item.title}`}
           ratio={ratio}
           sizes={sizes}
           priority={priority}

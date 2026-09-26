@@ -78,7 +78,7 @@ export default async function CaseStudy({ params }: Props) {
         </header>
 
         <div className="gutter mx-auto max-w-[1320px]">
-          <Shot src={w.cover} alt={`${w.client} project screenshot`} ratio="16/9" priority sizes="(min-width: 1320px) 1240px, 100vw" />
+          <Shot src={w.cover} alt={`${w.client}: ${w.title}`} ratio="16/9" priority sizes="(min-width: 1320px) 1240px, 100vw" />
         </div>
 
         <div className="gutter mx-auto grid max-w-[1320px] gap-12 py-14 md:py-20 lg:grid-cols-12">
