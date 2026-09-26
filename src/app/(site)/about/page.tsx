@@ -20,7 +20,6 @@ const principles = [
   { title: "You own everything", text: "Code, data, domain and accounts are yours. No lock-in, no surprises." },
 ];
 
-const stack = ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL", "Flutter", "Vercel", "Razorpay", "Resend"];
 
 export default function AboutPage() {
   return (
@@ -91,8 +90,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col gap-6 p-7 sm:p-9 lg:p-12">
               <div>
-                <p className="font-mono text-xs text-accent-text">Founder</p>
-                <h2 className="text-display-lg mt-2">{site.founder}</h2>
+                <h2 className="text-display-lg">{site.founder}</h2>
                 <p className="mt-1 text-muted">Founder, {site.name}</p>
               </div>
 
@@ -105,22 +103,28 @@ export default function AboutPage() {
                 </p>
               </blockquote>
 
-              <p className="max-w-[52ch] text-muted">
-                Sri Akash leads design and engineering at NexArc, working directly with every client from the first call to launch.
-              </p>
-
-              <div>
-                <h3 className="font-mono text-xs text-subtle">Tools we build with</h3>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {stack.map((t) => (
-                    <li key={t} className="rounded-[var(--radius-control)] border border-line px-3 py-1.5 text-sm">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+              {/* first-person note, built from the "Why we started" story */}
+              <div className="max-w-[56ch] space-y-3 text-muted">
+                <p>
+                  Hi, I&rsquo;m Sri Akash. I started NexArc because small and growing businesses run on phone calls, notebooks and WhatsApp groups,
+                  and the software built for them rarely fits the way they work.
+                </p>
+                <p>
+                  I lead design and engineering myself and work directly with every client, from the first call to launch, so what we build feels
+                  obvious from day one.
+                </p>
               </div>
 
-              <div className="mt-auto flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-5">
+              {/* signature: name in the brand face with the arc as a swash */}
+              <div aria-hidden className="relative w-fit">
+                <p className="-rotate-2 font-display text-[1.6rem] leading-none font-bold tracking-tight text-ink">{site.founder}</p>
+                <svg viewBox="8 8 34 34" className="absolute -right-10 -top-4 size-7 rotate-12">
+                  <path d={ARC_PATH} fill="none" strokeWidth="5" strokeLinecap="round" className="stroke-accent" />
+                </svg>
+              </div>
+
+              <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-line pt-5">
+                <p className="basis-full text-sm text-subtle sm:basis-auto">Write to me directly</p>
                 <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 py-1.5 font-medium hover:text-accent-text">
                   <EnvelopeSimple size={18} aria-hidden />
                   Email
