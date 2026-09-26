@@ -91,7 +91,7 @@ export default function AboutPage() {
             <div className="flex flex-col gap-6 p-7 sm:p-9 lg:p-12">
               <div>
                 <h2 className="text-display-lg">{site.founder}</h2>
-                <p className="mt-1 text-muted">Founder, {site.name}</p>
+                <p className="mt-1 font-medium text-accent-text">Founder, {site.name}</p>
               </div>
 
               <blockquote className="flex gap-4">
