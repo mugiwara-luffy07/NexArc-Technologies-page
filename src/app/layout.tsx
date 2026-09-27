@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: site.url,
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/", types: { "text/plain": [{ url: "/llms.txt", title: "LLM summary" }] } },
 };
 
 export const viewport: Viewport = {

@@ -5,7 +5,7 @@ import { Shot } from "@/components/ui/Shot";
 import { ButtonLink, buttonClass } from "@/components/ui/Button";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { getProduct, getProducts } from "@/lib/content";
-import { pageMeta } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMeta, softwareApplicationJsonLd } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -27,6 +27,18 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            softwareApplicationJsonLd(p),
+            breadcrumbJsonLd([
+              { name: "Products", path: "/products" },
+              { name: p.name, path: `/products/${p.slug}` },
+            ]),
+          ]),
+        }}
+      />
       <section className="gutter mx-auto grid max-w-[1320px] items-center gap-10 pb-12 pt-10 sm:pt-14 md:pt-20 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <nav aria-label="Breadcrumb" className="text-sm text-subtle">

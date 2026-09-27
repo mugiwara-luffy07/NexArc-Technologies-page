@@ -35,6 +35,14 @@ export function organizationJsonLd() {
     areaServed,
     knowsAbout: ["Website development", "Web design", "CRM development", "E-commerce development", "Mobile app development", "SaaS development", "Custom software development"],
     sameAs: Object.values(site.social).filter(Boolean),
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      email: site.email,
+      telephone: site.phone,
+      areaServed: "IN",
+      availableLanguage: ["English", "Tamil"],
+    },
   };
 }
 
@@ -77,5 +85,34 @@ export function serviceJsonLd(s: { title: string; summary: string; slug: string 
     serviceType: s.title,
     provider: { "@id": `${site.url}/#organization` },
     areaServed,
+  };
+}
+
+export function softwareApplicationJsonLd(p: { name: string; tagline: string; summary: string; slug: string; cover?: string; url?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: p.name,
+    description: `${p.tagline} ${p.summary}`,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: p.url ?? `${site.url}/products/${p.slug}`,
+    ...(p.cover ? { image: `${site.url}${p.cover}` } : {}),
+    publisher: { "@id": `${site.url}/#organization` },
+  };
+}
+
+export function caseStudyJsonLd(w: { title: string; client: string; summary: string; slug: string; year: string; cover?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: w.title,
+    description: w.summary,
+    url: `${site.url}/work/${w.slug}`,
+    ...(w.cover ? { image: `${site.url}${w.cover}` } : {}),
+    datePublished: w.year,
+    about: { "@type": "Organization", name: w.client },
+    author: { "@id": `${site.url}/#organization` },
+    publisher: { "@id": `${site.url}/#organization` },
   };
 }

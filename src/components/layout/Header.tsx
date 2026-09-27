@@ -141,7 +141,7 @@ export function Header() {
         aria-modal="true"
         aria-label="Menu"
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] z-30 overflow-y-auto bg-paper lg:hidden"
+        className="fixed inset-x-0 bottom-0 top-[calc(4rem+env(safe-area-inset-top))] z-[35] overflow-y-auto bg-paper lg:hidden"
       >
         <nav aria-label="Mobile" className="gutter flex min-h-full flex-col pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-6">
           <ul className="flex flex-col">

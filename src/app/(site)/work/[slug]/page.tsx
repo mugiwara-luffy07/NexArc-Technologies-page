@@ -5,7 +5,7 @@ import { Mdx } from "@/components/content/Mdx";
 import { Shot } from "@/components/ui/Shot";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { getWork, getWorkItem } from "@/lib/content";
-import { breadcrumbJsonLd, pageMeta } from "@/lib/seo";
+import { breadcrumbJsonLd, caseStudyJsonLd, pageMeta } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -36,12 +36,13 @@ export default async function CaseStudy({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
+          __html: JSON.stringify([
+            caseStudyJsonLd(w),
             breadcrumbJsonLd([
               { name: "Work", path: "/work" },
               { name: w.client, path: `/work/${w.slug}` },
             ]),
-          ),
+          ]),
         }}
       />
       <article>

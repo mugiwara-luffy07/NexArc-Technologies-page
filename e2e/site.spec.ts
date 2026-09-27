@@ -100,3 +100,21 @@ test("theme toggle switches to dark and persists", async ({ page, isMobile }) =>
   await page.reload();
   expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe(after);
 });
+
+test("theme toggle in the phone menu is tappable and switches theme", async ({ page, isMobile }) => {
+  test.skip(!isMobile, "phone-only menu sheet");
+  await page.goto("/");
+  const before = await page.evaluate(() => document.documentElement.dataset.theme);
+  await page.getByRole("button", { name: "Open menu" }).click();
+  // a real click: fails if anything (like the WhatsApp button) covers the toggle
+  await page.locator("#mobile-menu").getByRole("button", { name: /switch to (dark|light) theme/i }).click({ timeout: 5000 });
+  expect(await page.evaluate(() => document.documentElement.dataset.theme)).not.toBe(before);
+});
+
+test("llms.txt and robots.txt describe the site for AI crawlers", async ({ request }) => {
+  const llms = await request.get("/llms.txt");
+  expect(llms.ok()).toBeTruthy();
+  expect(await llms.text()).toContain("Tamil Nadu");
+  expect((await request.get("/llms-full.txt")).ok()).toBeTruthy();
+  expect(await (await request.get("/robots.txt")).text()).toContain("GPTBot");
+});
