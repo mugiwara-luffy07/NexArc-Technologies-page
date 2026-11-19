@@ -11,17 +11,17 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta({
   title: "Full-Stack Engineer Internship",
   description:
-    "NexArc Technologies is hiring 3 Full-Stack Engineer Interns in Tamil Nadu. 8 weeks of real projects with Next.js, React, TypeScript, Node.js and Supabase. Apply with your resume.",
+    "NexArc Technologies is hiring 3 Full-Stack Engineer Interns in Tamil Nadu. A 12 week hybrid internship on real projects with Next.js, React, TypeScript, Node.js and Supabase. Apply with your resume.",
   path: "/internships",
 });
 
 const facts = [
   { label: "Openings", value: "3" },
-  { label: "Duration", value: "8 weeks" },
+  { label: "Duration", value: "12 weeks", note: "or project completion, whichever is earlier" },
+  { label: "Mode", value: "Hybrid", note: "Online + Offline" },
   { label: "Type", value: "Project-based" },
   { label: "Stipend", value: "Unpaid" },
-  { label: "Reporting to", value: "Founder / Technical Lead" },
-];
+] satisfies { label: string; value: string; note?: string }[];
 
 const mandatory = [
   "Next.js and React.js",
@@ -144,7 +144,7 @@ export default function InternshipsPage() {
   return (
     <>
       <PageIntro title={INTERNSHIP_ROLE}>
-        Build real software with us for 8 weeks. Work across frontend, backend, databases and APIs, with features you own from spec to ship.
+        A 12 week hybrid internship, online and offline. Build real software across frontend, backend, databases and APIs, with features you own from spec to ship.
       </PageIntro>
 
       {/* Role card: status, key facts, apply */}
@@ -167,6 +167,7 @@ export default function InternshipsPage() {
               <div key={f.label}>
                 <dt className="font-mono text-xs text-subtle">{f.label}</dt>
                 <dd className="mt-1.5 font-display text-lg font-bold tracking-tight">{f.value}</dd>
+                {"note" in f && f.note && <dd className="mt-1 max-w-[22ch] text-sm text-subtle">{f.note}</dd>}
               </div>
             ))}
           </dl>
@@ -251,7 +252,7 @@ export default function InternshipsPage() {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <h2 className="text-display-lg">
-              Apply for the <span className="text-accent-text">role</span>
+              Your Next Arc <span className="text-accent-text">Starts at NexArc</span>
             </h2>
             <p className="mt-4 max-w-[36ch] text-muted">
               Send your details, your GitHub and your resume. Shortlisted candidates get the technical assessment by email.

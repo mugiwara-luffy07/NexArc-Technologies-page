@@ -29,7 +29,7 @@ function templates(a: Application) {
     {
       label: "Send offer",
       subject: `${role} at NexArc: you are selected`,
-      body: `Hi ${first},\n\nCongratulations! We are happy to offer you the ${role} position at NexArc Technologies for 8 weeks.\n\n[Add the start date, onboarding details and what to prepare here.]\n\nPlease reply to confirm.${sign}`,
+      body: `Hi ${first},\n\nCongratulations! We are happy to offer you the ${role} position at NexArc Technologies. The internship is hybrid (online and offline) and runs for 12 weeks or until project completion, whichever is earlier.\n\n[Add the start date, onboarding details and what to prepare here.]\n\nPlease reply to confirm.${sign}`,
     },
     {
       label: "Send rejection",
