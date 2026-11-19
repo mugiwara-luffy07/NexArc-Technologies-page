@@ -152,6 +152,9 @@ test.describe("hiring dashboard", () => {
     await page.goto("/s3cret");
     await page.getByLabel("Password").fill("e2e-admin-pass");
     await page.getByRole("button", { name: "Sign in" }).click();
+    await expect(page.getByRole("heading", { name: "Database not connected" })).toBeVisible();
+    await page.getByRole("switch", { name: "Demo data" }).click();
+    await expect(page.getByText(/Demo mode: sample candidates only/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Full-Stack Engineer Intern" })).toBeVisible();
     await page.getByRole("link", { name: /Arun Kumar/ }).click();
     await expect(page.getByRole("heading", { name: "Arun Kumar" })).toBeVisible();
@@ -163,5 +166,10 @@ test.describe("hiring dashboard", () => {
     await expect(page.getByText("Scorecard and notes updated")).toBeVisible();
     const csv = await page.request.get("/s3cret/export");
     expect(await csv.text()).toContain("Strong API work");
+    const resume = await page.request.get("/s3cret/demo-resume");
+    expect(resume.headers()["content-type"]).toBe("application/pdf");
+    await page.goto("/s3cret");
+    await page.getByRole("switch", { name: "Demo data" }).click();
+    await expect(page.getByRole("heading", { name: "Database not connected" })).toBeVisible();
   });
 });

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { CRITERIA, endSession, isAdmin, isStage, passwordMatches, stageLabel, startSession, updateApplication } from "@/lib/admin";
+import { CRITERIA, endSession, isAdmin, isDemo, setDemo, isStage, passwordMatches, stageLabel, startSession, updateApplication } from "@/lib/admin";
 import { clientIp, rateLimited } from "@/lib/leads";
 
 export async function login(_: { error?: string }, formData: FormData): Promise<{ error?: string }> {
@@ -44,4 +44,11 @@ export async function saveReview(formData: FormData) {
   const notes = String(formData.get("notes") ?? "").slice(0, 5000);
   await updateApplication(id, { data: { scores }, notes, log: "Scorecard and notes updated" });
   revalidatePath("/s3cret", "layout");
+}
+
+// DEMO MODE (temporary): switch sample data on or off for this browser
+export async function toggleDemo() {
+  if (!(await isAdmin())) throw new Error("Not signed in");
+  await setDemo(!(await isDemo()));
+  redirect("/s3cret");
 }

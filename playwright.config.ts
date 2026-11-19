@@ -22,6 +22,6 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 240_000,
-    env: { ALLOW_UNCONFIGURED_LEADS: "1", DISABLE_RATE_LIMIT: "1", ADMIN_PASSWORD: "e2e-admin-pass", ADMIN_DEMO: "1" },
+    env: { ALLOW_UNCONFIGURED_LEADS: "1", DISABLE_RATE_LIMIT: "1", ADMIN_PASSWORD: "e2e-admin-pass" },
   },
 });
