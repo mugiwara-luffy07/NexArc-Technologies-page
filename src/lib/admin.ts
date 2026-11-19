@@ -52,13 +52,18 @@ export type Application = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Auth: one password from ADMIN_PASSWORD, signed session cookie       */
+/* Auth: optional. With ADMIN_PASSWORD set, a password and a signed    */
+/* session cookie guard the dashboard. Without it, the owner chose to   */
+/* leave /s3cret open (unlisted and noindex only).                      */
 /* ------------------------------------------------------------------ */
 
 const COOKIE = "nx_admin";
 const SESSION_HOURS = 12;
 
-export const adminEnabled = () => Boolean(process.env.ADMIN_PASSWORD);
+/** The dashboard route exists. */
+export const adminEnabled = () => true;
+/** A password lock is configured. */
+export const passwordRequired = () => Boolean(process.env.ADMIN_PASSWORD);
 
 const sign = (value: string) => createHmac("sha256", `nexarc-admin:${process.env.ADMIN_PASSWORD}`).update(value).digest("hex");
 
@@ -69,7 +74,7 @@ function safeEqual(a: string, b: string) {
   return timingSafeEqual(ha, hb);
 }
 
-export const passwordMatches = (input: string) => adminEnabled() && safeEqual(input, process.env.ADMIN_PASSWORD!);
+export const passwordMatches = (input: string) => passwordRequired() && safeEqual(input, process.env.ADMIN_PASSWORD!);
 
 export async function startSession() {
   const expires = Date.now() + SESSION_HOURS * 3600_000;
@@ -88,7 +93,7 @@ export async function endSession() {
 }
 
 export async function isAdmin() {
-  if (!adminEnabled()) return false;
+  if (!passwordRequired()) return true;
   const raw = (await cookies()).get(COOKIE)?.value;
   if (!raw) return false;
   const [expires, sig] = raw.split(".");

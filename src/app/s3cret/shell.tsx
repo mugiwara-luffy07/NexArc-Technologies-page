@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mark } from "@/components/brand/Mark";
 import { logout, toggleDemo } from "./actions";
 import { LoginForm } from "./ui";
-import { isDemo, stageLabel, type Stage } from "@/lib/admin";
+import { isDemo, passwordRequired, stageLabel, type Stage } from "@/lib/admin";
 import { clsx } from "clsx";
 
 export async function AdminBar() {
@@ -29,11 +29,13 @@ export async function AdminBar() {
           <Link href="/s3cret/export" prefetch={false} className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
             Export CSV
           </Link>
-          <form action={logout}>
-            <button type="submit" className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
-              Sign out
-            </button>
-          </form>
+          {passwordRequired() && (
+            <form action={logout}>
+              <button type="submit" className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
+                Sign out
+              </button>
+            </form>
+          )}
         </nav>
       </div>
     </header>
