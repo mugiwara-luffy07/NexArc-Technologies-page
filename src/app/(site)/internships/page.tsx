@@ -15,6 +15,9 @@ export const metadata = pageMeta({
   path: "/internships",
 });
 
+// Last day to apply; shown in the role card and the apply section
+const APPLY_BEFORE = "25 November 2026";
+
 const facts = [
   { label: "Openings", value: "3" },
   { label: "Duration", value: "12 weeks", note: "or project completion, whichever is earlier" },
@@ -158,6 +161,7 @@ export default function InternshipsPage() {
               </span>
               Hiring now · Internship, Engineering
             </p>
+            <p className="text-sm font-medium text-accent-text sm:ml-auto sm:mr-2">Apply before {APPLY_BEFORE}</p>
             <ButtonLink href="#apply" size="lg">
               Apply now
             </ButtonLink>
@@ -256,6 +260,9 @@ export default function InternshipsPage() {
             </h2>
             <p className="mt-4 max-w-[36ch] text-muted">
               Send your details, your GitHub and your resume. Shortlisted candidates get the technical assessment by email.
+            </p>
+            <p className="mt-4 inline-flex rounded-full bg-canvas px-3.5 py-1.5 text-sm font-medium">
+              Apply before <span className="ml-1 text-accent-text">{APPLY_BEFORE}</span>
             </p>
             <p className="mt-6 text-sm text-muted">
               Questions? Email{" "}
