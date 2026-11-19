@@ -166,13 +166,19 @@ export async function notify(type: LeadType, data: Record<string, unknown>, atta
       type === "project"
         ? `Thanks for telling us about your project. We read every brief ourselves and will reply within one working day with next steps and a rough budget range.`
         : `Thanks for applying for the Full-Stack Engineer Intern role at NexArc. We review every application ourselves. If you are shortlisted, we will email you a practical technical assessment as the next step.`;
+    // applicants are pointed to email only; project clients can also WhatsApp
+    const mail = `<a href="mailto:${site.email}" style="color:#bf4410">${site.email}</a>`;
+    const contact =
+      type === "project"
+        ? `If it is urgent, WhatsApp us on <a href="${site.whatsappHref}" style="color:#bf4410">${site.phone}</a>.`
+        : `For any queries, email us at ${mail}.`;
     const reply = await resend.emails.send({
       from,
       to: email,
       replyTo: to,
       subject: type === "project" ? "We got your project brief" : "We got your internship application",
       html: shell(
-        `<p style="margin:0 0 14px">Hi ${escape(firstName)},</p><p style="margin:0 0 14px">${body}</p><p style="margin:0 0 14px">If it is urgent, WhatsApp us on <a href="${site.whatsappHref}" style="color:#bf4410">${site.phone}</a>.</p><p style="margin:0">${site.founder}<br/><span style="color:#66666e">${site.name}</span></p>`,
+        `<p style="margin:0 0 14px">Hi ${escape(firstName)},</p><p style="margin:0 0 14px">${body}</p><p style="margin:0 0 14px">${contact}</p><p style="margin:0">${site.founder}<br/><span style="color:#66666e">${site.name}</span></p>`,
       ),
     });
     // the owner already has the lead; a failed auto-reply is only logged
