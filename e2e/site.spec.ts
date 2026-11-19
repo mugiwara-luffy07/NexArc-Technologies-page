@@ -147,29 +147,11 @@ test.describe("hiring dashboard", () => {
     await expect(page.getByText("Wrong password.")).toBeVisible();
   });
 
-  test("lists candidates and screens one", async ({ page, isMobile }) => {
-    test.skip(isMobile, "one device is enough for the workflow");
+  test("signs in and reports a missing database clearly", async ({ page }) => {
     await page.goto("/s3cret");
     await page.getByLabel("Password").fill("e2e-admin-pass");
     await page.getByRole("button", { name: "Sign in" }).click();
     await expect(page.getByRole("heading", { name: "Database not connected" })).toBeVisible();
-    await page.getByRole("switch", { name: "Demo data" }).click();
-    await expect(page.getByText(/Demo mode: sample candidates only/)).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Full-Stack Engineer Intern" })).toBeVisible();
-    await page.getByRole("link", { name: /Arun Kumar/ }).click();
-    await expect(page.getByRole("heading", { name: "Arun Kumar" })).toBeVisible();
-    await page.getByRole("button", { name: "Shortlisted" }).click();
-    await expect(page.getByText("Moved to Shortlisted")).toBeVisible();
-    await page.locator('label:has(input[name="score_technical"][value="4"])').click();
-    await page.getByLabel("Notes").fill("Strong API work");
-    await page.getByRole("button", { name: "Save review" }).click();
-    await expect(page.getByText("Scorecard and notes updated")).toBeVisible();
-    const csv = await page.request.get("/s3cret/export");
-    expect(await csv.text()).toContain("Strong API work");
-    const resume = await page.request.get("/s3cret/demo-resume");
-    expect(resume.headers()["content-type"]).toBe("application/pdf");
-    await page.goto("/s3cret");
-    await page.getByRole("switch", { name: "Demo data" }).click();
-    await expect(page.getByRole("heading", { name: "Database not connected" })).toBeVisible();
+    await expect(page.getByRole("switch", { name: "Demo data" })).toHaveCount(0);
   });
 });

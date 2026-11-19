@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { Mark } from "@/components/brand/Mark";
-import { logout, toggleDemo } from "./actions";
+import { logout } from "./actions";
 import { LoginForm } from "./ui";
-import { isDemo, passwordRequired, stageLabel, type Stage } from "@/lib/admin";
+import { passwordRequired, stageLabel, type Stage } from "@/lib/admin";
 import { clsx } from "clsx";
 
-export async function AdminBar() {
-  const demo = await isDemo();
+export function AdminBar() {
   return (
-    <>
     <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
       <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-3 px-4 sm:px-6">
         <Link href="/s3cret" className="flex items-center gap-2.5">
@@ -17,15 +15,6 @@ export async function AdminBar() {
         </Link>
         <span className="hidden font-mono text-xs text-subtle lg:inline">NexArc Technologies · private</span>
         <nav className="ml-auto flex items-center gap-1 text-sm">
-          {/* DEMO MODE (temporary): remove this switch after testing */}
-          <form action={toggleDemo}>
-            <button type="submit" role="switch" aria-checked={demo} className="flex items-center gap-2 rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
-              <span className={clsx("relative h-5 w-9 rounded-full transition-colors", demo ? "bg-accent" : "bg-line")} aria-hidden>
-                <span className={clsx("absolute top-0.5 size-4 rounded-full bg-paper shadow transition-[left]", demo ? "left-[1.125rem]" : "left-0.5")} />
-              </span>
-              Demo data
-            </button>
-          </form>
           <Link href="/s3cret/export" prefetch={false} className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
             Export CSV
           </Link>
@@ -39,12 +28,6 @@ export async function AdminBar() {
         </nav>
       </div>
     </header>
-    {demo && (
-      <div role="status" className="border-b border-[#ffd6c2] bg-[#fff1e9] px-4 py-2 text-center text-sm text-[#9a3a0e] dark:border-[#5a3020] dark:bg-[#3a2117] dark:text-[#ffb08a]">
-        Demo mode: sample candidates only. Changes stay in this browser and never touch real applications.
-      </div>
-    )}
-    </>
   );
 }
 

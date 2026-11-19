@@ -13,7 +13,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Search
   if (!adminEnabled()) notFound();
   if (!(await isAdmin())) return <LoginScreen />;
 
-  if (!(await dataReady())) {
+  if (!dataReady()) {
     return (
       <>
         <AdminBar />

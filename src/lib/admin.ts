@@ -127,7 +127,7 @@ function toApplication(r: Row): Application {
     portfolio: link(d.github) ? link(d.portfolio) : "",
     about: str(d.about),
     role: str(d.role) || str(d.track) || "Internship",
-    resumePath: resume.endsWith(".pdf") || resume === DEMO_RESUME ? resume : null,
+    resumePath: resume.endsWith(".pdf") ? resume : null,
     stage: isStage(d.stage) ? d.stage : "applied",
     scores,
     score: vals.length ? Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10 : 0,
@@ -136,73 +136,9 @@ function toApplication(r: Row): Application {
   };
 }
 
-/* ------------------------------------------------------------------ */
-/* DEMO MODE (temporary, remove after testing): sample candidates       */
-/* Switched on per browser from the dashboard, or by ADMIN_DEMO=1 in    */
-/* local dev and e2e. Edits live in a cookie, never in the database.    */
-/* ------------------------------------------------------------------ */
-
-const DEMO_COOKIE = "nx_demo";
-const DEMO_EDITS = "nx_demo_edits";
-export const DEMO_RESUME = "demo";
-
-const demoBase: Row[] = [
-  ["Priya Raman", "priya@example.com", "B.E. CSE, 3rd year, Kongu Engineering College", "github.com/priya-builds", "A hostel mess booking app in Next.js and Supabase with auth, a REST API for meal slots and an admin view. Deployed on Vercel and used by 120 students."],
-  ["Arun Kumar", "arun@example.com", "B.Tech IT, final year, PSG Tech", "github.com/arunk", "Inventory tracker for my uncle's hardware shop. Node.js API, PostgreSQL, React front end, barcode scanning from the phone camera."],
-  ["Divya S", "divya@example.com", "MCA, 1st year, Anna University", "github.com/divyas", "Built a college event portal with registrations and QR check-in using Next.js and Prisma."],
-  ["Karthik M", "karthik@example.com", "B.Sc Computer Science, 3rd year", "github.com/karthik-m", "A Telegram bot that tracks expenses, written in TypeScript with a Supabase database and charts in a small React dashboard."],
-  ["Meena Lakshmi", "meena@example.com", "B.E. ECE, final year", "github.com/meenal", "Clinic appointment booking site with OTP login, doctor slots and WhatsApp reminders through a third-party API."],
-].map(([name, email, college, github, about], i) => ({
-  id: `00000000-0000-4000-8000-00000000000${i + 1}`,
-  created_at: new Date(Date.UTC(2026, 10, 18 - i * 2, 5 + i, 30)).toISOString(),
-  name,
-  email,
-  phone: `+91 98765 4321${i}`,
-  data: { role: "Full-Stack Engineer Intern", college, github: `https://${github}`, portfolio: i % 2 ? "" : `https://${name.split(" ")[0].toLowerCase()}.vercel.app`, about, resume: DEMO_RESUME },
-  notes: null,
-}));
-
-type DemoEdits = Record<string, { data?: Record<string, unknown>; notes?: string | null }>;
-
-export async function isDemo() {
-  if (process.env.ADMIN_DEMO === "1" && process.env.VERCEL !== "1") return true;
-  return (await cookies()).get(DEMO_COOKIE)?.value === "1";
-}
-
-export async function setDemo(on: boolean) {
-  const jar = await cookies();
-  const opts = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict" as const, path: "/s3cret" };
-  if (on) jar.set(DEMO_COOKIE, "1", { ...opts, maxAge: 7 * 86400 });
-  else jar.delete({ name: DEMO_COOKIE, path: "/s3cret" });
-  jar.delete({ name: DEMO_EDITS, path: "/s3cret" });
-}
-
-async function demoRows(): Promise<Row[]> {
-  let edits: DemoEdits = {};
-  try {
-    edits = JSON.parse((await cookies()).get(DEMO_EDITS)?.value ?? "{}");
-  } catch {}
-  return demoBase.map((r) => (edits[r.id] ? { ...r, data: { ...r.data, ...edits[r.id].data }, notes: edits[r.id].notes ?? r.notes } : r));
-}
-
-async function saveDemoEdit(id: string, data: Record<string, unknown>, notes: string | null) {
-  const jar = await cookies();
-  let edits: DemoEdits = {};
-  try {
-    edits = JSON.parse(jar.get(DEMO_EDITS)?.value ?? "{}");
-  } catch {}
-  // keep the cookie small: short notes, last few activity entries
-  const { history, ...rest } = data;
-  edits[id] = { data: { ...rest, history: Array.isArray(history) ? history.slice(0, 4) : [] }, notes: notes ? notes.slice(0, 280) : notes };
-  jar.set(DEMO_EDITS, JSON.stringify(edits), { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", path: "/s3cret", maxAge: 7 * 86400 });
-}
-
-/* ------------------------------------------------------------------ */
-
-export const dataReady = async () => (await isDemo()) || Boolean(supabase());
+export const dataReady = () => Boolean(supabase());
 
 export async function listApplications(): Promise<Application[]> {
-  if (await isDemo()) return (await demoRows()).map(toApplication);
   const db = supabase();
   if (!db) throw new Error("Supabase is not configured");
   const { data, error } = await db
@@ -215,7 +151,6 @@ export async function listApplications(): Promise<Application[]> {
 }
 
 async function getRow(id: string): Promise<Row | null> {
-  if (await isDemo()) return (await demoRows()).find((r) => r.id === id) ?? null;
   const db = supabase();
   if (!db) throw new Error("Supabase is not configured");
   const { data, error } = await db.from("leads").select("id, created_at, name, email, phone, data, notes").eq("type", "internship").eq("id", id).maybeSingle();
@@ -235,7 +170,6 @@ export async function updateApplication(id: string, patch: { data?: Record<strin
   if (patch.log) history.unshift({ at: new Date().toISOString(), text: patch.log });
   const data = { ...row.data, ...patch.data, history: history.slice(0, 50) };
   const notes = patch.notes ?? row.notes;
-  if (await isDemo()) return saveDemoEdit(id, data, notes);
   const { error } = await supabase()!.from("leads").update({ data, notes }).eq("id", id);
   if (error) throw new Error(error.message);
 }
@@ -243,8 +177,6 @@ export async function updateApplication(id: string, patch: { data?: Record<strin
 /** Short-lived link to the private resume PDF. */
 export async function resumeUrl(path: string | null) {
   if (!path) return null;
-  if (path === DEMO_RESUME) return "/s3cret/demo-resume";
-  if (await isDemo()) return null;
   const { data } = await supabase()!.storage.from("resumes").createSignedUrl(path, 15 * 60);
   return data?.signedUrl ?? null;
 }
