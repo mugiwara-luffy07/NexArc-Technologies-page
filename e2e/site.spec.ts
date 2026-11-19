@@ -125,7 +125,7 @@ test("internship application needs a resume and submits with one", async ({ page
   await page.getByLabel("Email").fill("test@example.com");
   await page.getByLabel("Phone or WhatsApp").fill("+91 9876543210");
   await page.getByLabel("College, degree and year").fill("B.E. CSE, 3rd year");
-  await page.getByLabel("GitHub profile").fill("https://github.com/test-applicant");
+  await page.getByLabel("GitHub profile").fill("github.com/test-applicant");
   await page.getByLabel("Tell us about an application you built").fill("A booking app with Next.js and Supabase, with auth and a REST API for slots.");
   await page.getByRole("checkbox").check({ force: true });
   const resume = page.getByLabel(/Resume/);

@@ -32,20 +32,30 @@ export const waitlistSchema = z.object({
   consent,
 });
 
+/** Accepts "github.com/name", "www.site.com" or a bare GitHub username and turns it into a full https link. */
+function normalizeLink(v: unknown, kind?: "github") {
+  const s = String(v ?? "").trim();
+  if (!s) return "";
+  if (kind === "github" && /^@?[a-z0-9-]+$/i.test(s)) return `https://github.com/${s.replace(/^@/, "")}`;
+  return /^https?:\/\//i.test(s) ? s : `https://${s}`;
+}
+
 export const internshipSchema = z.object({
   role: z.literal(INTERNSHIP_ROLE),
   name,
   email,
   phone,
   college: z.string().trim().min(2, "Please enter your college").max(160),
-  github: z
-    .string()
-    .trim()
-    .url("Please enter a full link, starting with https://")
-    .max(300)
-    .refine((u) => /github\.com\//i.test(u), "Please share your GitHub profile link"),
-  portfolio: z.string().trim().url("Please enter a full link, starting with https://").max(300).optional().or(z.literal("")),
-  about: z.string().trim().min(40, "Tell us a little more about what you built").max(2000),
+  github: z.preprocess(
+    (v) => normalizeLink(v, "github"),
+    z
+      .string()
+      .url("Please enter your GitHub profile link")
+      .max(300)
+      .refine((u) => /github\.com\/[^/]+/i.test(u), "Please share your GitHub profile link, like github.com/your-name"),
+  ),
+  portfolio: z.preprocess((v) => normalizeLink(v), z.string().url("Please enter a valid link").max(300).optional().or(z.literal(""))),
+  about: z.string().trim().min(20, "Tell us a little more about what you built").max(2000),
   consent,
 });
 

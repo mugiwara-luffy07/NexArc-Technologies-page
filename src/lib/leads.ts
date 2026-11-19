@@ -142,7 +142,7 @@ export async function notify(type: LeadType, data: Record<string, unknown>, atta
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.info(`[leads] Resend not configured, skipping email for ${type}`);
-    return;
+    return false;
   }
   const resend = new Resend(key);
   const from = process.env.LEADS_FROM_EMAIL ?? `NexArc Technologies <hello@nexarctechnologies.com>`;
@@ -178,4 +178,5 @@ export async function notify(type: LeadType, data: Record<string, unknown>, atta
     // the owner already has the lead; a failed auto-reply is only logged
     if (reply.error) console.error("[leads] auto-reply failed", reply.error.message);
   }
+  return true;
 }
