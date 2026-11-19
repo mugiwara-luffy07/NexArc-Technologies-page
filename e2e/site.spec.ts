@@ -118,3 +118,19 @@ test("llms.txt and robots.txt describe the site for AI crawlers", async ({ reque
   expect((await request.get("/llms-full.txt")).ok()).toBeTruthy();
   expect(await (await request.get("/robots.txt")).text()).toContain("GPTBot");
 });
+
+test("internship application needs a resume and submits with one", async ({ page }) => {
+  await page.goto("/internships");
+  await page.getByLabel("Full name").fill("Test Applicant");
+  await page.getByLabel("Email").fill("test@example.com");
+  await page.getByLabel("Phone or WhatsApp").fill("+91 9876543210");
+  await page.getByLabel("College, degree and year").fill("B.E. CSE, 3rd year");
+  await page.getByLabel("GitHub profile").fill("https://github.com/test-applicant");
+  await page.getByLabel("Tell us about an application you built").fill("A booking app with Next.js and Supabase, with auth and a REST API for slots.");
+  await page.getByRole("checkbox").check({ force: true });
+  const resume = page.getByLabel(/Resume/);
+  await expect(resume).toHaveAttribute("required", "");
+  await resume.setInputFiles({ name: "resume.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.4 test") });
+  await page.getByRole("button", { name: "Send application" }).click();
+  await expect(page.getByText("Application received.")).toBeVisible();
+});

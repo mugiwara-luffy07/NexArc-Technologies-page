@@ -30,8 +30,8 @@ export default function PrivacyPage() {
               <strong>Product waitlist:</strong> your email and, if you pick one, the product you are interested in.
             </li>
             <li>
-              <strong>Internship applications:</strong> your name, email, phone, college, portfolio link, what you write about your work, and an optional
-              resume (PDF).
+              <strong>Internship applications:</strong> your name, email, phone, college, GitHub and portfolio links, what you write about your work, and
+              your resume (PDF).
             </li>
             <li>
               <strong>Website analytics:</strong> anonymous page view statistics through Vercel Analytics. It uses no cookies and does not identify you.
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
               <strong>Supabase</strong> stores form submissions and resumes in its Mumbai, India region.
             </li>
             <li>
-              <strong>Resend</strong> delivers our emails (the notification to us and the confirmation to you) from its Tokyo, Japan region.
+              <strong>Resend</strong> delivers our emails (the notification to us, with any resume attached, and the confirmation to you) from its Tokyo, Japan region.
             </li>
             <li>
               <strong>Vercel</strong> hosts this website and provides the anonymous analytics.

@@ -12,7 +12,7 @@ export const site = {
     "https://wa.me/919994155580?text=Hi%20NexArc%2C%20I%27d%20like%20to%20talk%20about%20a%20project.",
   founder: "Sri Akash",
   /** Flip to true when hiring interns: shows the application form again (and the server accepts applications). */
-  internshipsOpen: false,
+  internshipsOpen: true,
   locality: "Tamil Nadu, India",
   /** Legal identity, shown on the legal pages and in the footer */
   legal: {

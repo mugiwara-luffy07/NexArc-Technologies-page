@@ -3,7 +3,7 @@ import { z } from "zod";
 export const SERVICE_OPTIONS = ["Website", "CRM / business software", "E-commerce", "Custom platform / SaaS", "Mobile app", "Not sure yet"] as const;
 export const BUDGET_OPTIONS = ["Under ₹50k", "₹50k to ₹1.5L", "₹1.5L to ₹5L", "Above ₹5L", "Not sure yet"] as const;
 export const TIMELINE_OPTIONS = ["As soon as possible", "Within 1 to 2 months", "In 3 months or more", "Flexible"] as const;
-export const INTERNSHIP_TRACKS = ["Web development", "App development", "UI/UX design"] as const;
+export const INTERNSHIP_ROLE = "Full-Stack Engineer Intern";
 
 const name = z.string().trim().min(2, "Please enter your name").max(80);
 const email = z.string().trim().email("Please enter a valid email").max(120);
@@ -33,13 +33,19 @@ export const waitlistSchema = z.object({
 });
 
 export const internshipSchema = z.object({
-  track: z.enum(INTERNSHIP_TRACKS, { message: "Pick a track" }),
+  role: z.literal(INTERNSHIP_ROLE),
   name,
   email,
   phone,
   college: z.string().trim().min(2, "Please enter your college").max(160),
-  portfolio: z.string().trim().url("Please enter a full link, starting with https://").max(300),
-  about: z.string().trim().min(20, "Tell us a little more").max(2000),
+  github: z
+    .string()
+    .trim()
+    .url("Please enter a full link, starting with https://")
+    .max(300)
+    .refine((u) => /github\.com\//i.test(u), "Please share your GitHub profile link"),
+  portfolio: z.string().trim().url("Please enter a full link, starting with https://").max(300).optional().or(z.literal("")),
+  about: z.string().trim().min(40, "Tell us a little more about what you built").max(2000),
   consent,
 });
 

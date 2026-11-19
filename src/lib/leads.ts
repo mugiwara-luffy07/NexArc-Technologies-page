@@ -85,7 +85,7 @@ export async function saveLead(type: LeadType, data: Record<string, unknown>) {
 const SUBJECTS: Record<LeadType, (d: Record<string, unknown>) => string> = {
   project: (d) => `New project enquiry: ${d.service} from ${d.name}`,
   waitlist: (d) => `Waitlist signup${d.product ? ` for ${d.product}` : ""}: ${d.email}`,
-  internship: (d) => `Internship application: ${d.track} from ${d.name}`,
+  internship: (d) => `Internship application: ${d.role} from ${d.name}`,
 };
 
 const LABELS: Record<string, string> = {
@@ -98,11 +98,13 @@ const LABELS: Record<string, string> = {
   phone: "Phone",
   company: "Company",
   product: "Product",
-  track: "Track",
+  role: "Role",
   college: "College",
   portfolio: "Portfolio",
   about: "About",
-  resume: "Resume file",
+  resume: "Resume (Supabase storage)",
+  github: "GitHub",
+  availability: "Availability",
 };
 
 function escape(s: string) {
@@ -134,7 +136,9 @@ function table(data: Record<string, unknown>) {
   return `<table style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:15px">${rows}</table>`;
 }
 
-export async function notify(type: LeadType, data: Record<string, unknown>) {
+export type Attachment = { filename: string; content: Buffer };
+
+export async function notify(type: LeadType, data: Record<string, unknown>, attachments?: Attachment[]) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
     console.info(`[leads] Resend not configured, skipping email for ${type}`);
@@ -152,6 +156,7 @@ export async function notify(type: LeadType, data: Record<string, unknown>) {
     replyTo: email,
     subject: SUBJECTS[type](data),
     html: shell(`<h2 style="margin:0 0 12px;font-size:18px;color:#141416">${escape(SUBJECTS[type](data))}</h2>${table(data)}`),
+    ...(attachments?.length ? { attachments } : {}),
   });
   if (sent.error) throw new Error(`Resend: ${sent.error.message}`);
 
@@ -160,7 +165,7 @@ export async function notify(type: LeadType, data: Record<string, unknown>) {
     const body =
       type === "project"
         ? `Thanks for telling us about your project. We read every brief ourselves and will reply within one working day with next steps and a rough budget range.`
-        : `Thanks for applying for an internship at NexArc. We review applications every week and will get back to you by email.`;
+        : `Thanks for applying for the Full-Stack Engineer Intern role at NexArc. We review every application ourselves. If you are shortlisted, we will email you a practical technical assessment as the next step.`;
     const reply = await resend.emails.send({
       from,
       to: email,
