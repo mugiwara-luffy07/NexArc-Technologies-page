@@ -134,3 +134,34 @@ test("internship application needs a resume and submits with one", async ({ page
   await page.getByRole("button", { name: "Send application" }).click();
   await expect(page.getByText("Application received.")).toBeVisible();
 });
+
+test.describe("hiring dashboard", () => {
+  test("is locked behind a password and kept out of search", async ({ page }) => {
+    await page.goto("/s3cret");
+    await expect(page.getByRole("heading", { name: "Hiring dashboard" })).toBeVisible();
+    await expect(page.getByText("Priya Raman")).toHaveCount(0);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    expect((await page.request.get("/s3cret/export")).status()).toBe(401);
+    await page.getByLabel("Password").fill("wrong");
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await expect(page.getByText("Wrong password.")).toBeVisible();
+  });
+
+  test("lists candidates and screens one", async ({ page, isMobile }) => {
+    test.skip(isMobile, "one device is enough for the workflow");
+    await page.goto("/s3cret");
+    await page.getByLabel("Password").fill("e2e-admin-pass");
+    await page.getByRole("button", { name: "Sign in" }).click();
+    await expect(page.getByRole("heading", { name: "Full-Stack Engineer Intern" })).toBeVisible();
+    await page.getByRole("link", { name: /Arun Kumar/ }).click();
+    await expect(page.getByRole("heading", { name: "Arun Kumar" })).toBeVisible();
+    await page.getByRole("button", { name: "Shortlisted" }).click();
+    await expect(page.getByText("Moved to Shortlisted")).toBeVisible();
+    await page.locator('label:has(input[name="score_technical"][value="4"])').click();
+    await page.getByLabel("Notes").fill("Strong API work");
+    await page.getByRole("button", { name: "Save review" }).click();
+    await expect(page.getByText("Scorecard and notes updated")).toBeVisible();
+    const csv = await page.request.get("/s3cret/export");
+    expect(await csv.text()).toContain("Strong API work");
+  });
+});

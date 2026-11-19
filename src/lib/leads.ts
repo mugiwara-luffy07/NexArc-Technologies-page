@@ -38,7 +38,7 @@ export async function verifyTurnstile(token: FormDataEntryValue | null, ip: stri
   return data.success === true;
 }
 
-function supabase() {
+export function supabase() {
   const raw = process.env.SUPABASE_URL?.trim();
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
   if (!raw || !key) return null;
