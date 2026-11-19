@@ -50,5 +50,7 @@ export async function saveReview(formData: FormData) {
 export async function toggleDemo() {
   if (!(await isAdmin())) throw new Error("Not signed in");
   await setDemo(!(await isDemo()));
+  // drop cached dashboard renders so the switch shows its new state straight away
+  revalidatePath("/s3cret", "layout");
   redirect("/s3cret");
 }
