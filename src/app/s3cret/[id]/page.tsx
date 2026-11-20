@@ -180,7 +180,7 @@ export default async function CandidatePage({ params }: { params: Promise<{ id: 
                       aria-pressed={a.stage === s.id}
                       className={clsx(
                         "rounded-full px-3.5 py-2 text-sm ring-1 ring-inset transition-colors",
-                        a.stage === s.id ? "bg-ink text-paper ring-ink" : "text-muted ring-line hover:text-ink hover:ring-ink",
+                        a.stage === s.id ? "bg-accent text-on-accent ring-accent" : "text-muted ring-line hover:text-ink hover:ring-accent",
                       )}
                     >
                       {s.label}
@@ -200,7 +200,7 @@ export default async function CandidatePage({ params }: { params: Promise<{ id: 
                       {[1, 2, 3, 4, 5].map((n) => (
                         <label key={n} className="cursor-pointer">
                           <input type="radio" name={`score_${c.id}`} value={n} defaultChecked={a.scores[c.id] === n} className="peer sr-only" />
-                          <span className="grid size-10 place-items-center rounded-[var(--radius-control)] text-sm ring-1 ring-line transition-colors peer-checked:bg-accent peer-checked:text-on-accent peer-checked:ring-accent peer-focus-visible:shadow-[0_0_0_3px_var(--accent)] hover:ring-ink">
+                          <span className="grid size-10 place-items-center rounded-[var(--radius-control)] text-sm ring-1 ring-line transition-colors peer-checked:bg-accent peer-checked:text-on-accent peer-checked:ring-accent peer-focus-visible:shadow-[0_0_0_3px_var(--accent)] hover:ring-accent">
                             {n}
                           </span>
                         </label>
@@ -232,7 +232,7 @@ export default async function CandidatePage({ params }: { params: Promise<{ id: 
                   <a
                     key={t.label}
                     href={t.href}
-                    className="inline-flex h-10 items-center justify-center rounded-[var(--radius-control)] px-3 text-sm ring-1 ring-line hover:bg-canvas hover:ring-ink"
+                    className="inline-flex h-10 items-center justify-center rounded-[var(--radius-control)] px-3 text-sm ring-1 ring-line hover:bg-canvas hover:text-accent-text hover:ring-accent"
                   >
                     {t.label}
                   </a>
@@ -271,7 +271,7 @@ function Card({ title, action, children }: { title: string; action?: React.React
   return (
     <section className="rounded-[var(--radius-card)] bg-surface p-6 ring-1 ring-line">
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="font-display text-lg font-bold tracking-tight">{title}</h2>
+        <h2 className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight"><span aria-hidden className="h-4 w-1 rounded-full bg-accent" />{title}</h2>
         {action}
       </div>
       {children}
@@ -294,7 +294,7 @@ function Chip({ href, icon, external, children }: { href: string; icon: React.Re
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="inline-flex max-w-full items-center gap-2 rounded-full bg-canvas px-3.5 py-2 ring-1 ring-line hover:ring-ink"
+        className="inline-flex max-w-full items-center gap-2 rounded-full bg-canvas px-3.5 py-2 ring-1 ring-line hover:text-accent-text hover:ring-accent"
       >
         {icon}
         <span className="truncate">{children}</span>

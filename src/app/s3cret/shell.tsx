@@ -8,14 +8,17 @@ import { clsx } from "clsx";
 export function AdminBar() {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur-md">
+      <div aria-hidden className="h-0.5 bg-accent" />
       <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-3 px-4 sm:px-6">
         <Link href="/s3cret" className="flex items-center gap-2.5">
           <Mark className="size-7" />
-          <span className="font-display text-lg font-bold tracking-tight">Hiring</span>
+          <span className="font-display text-lg font-bold tracking-tight">
+            Hiring<span className="text-accent">.</span>
+          </span>
         </Link>
         <span className="hidden font-mono text-xs text-subtle lg:inline">NexArc Technologies · private</span>
         <nav className="ml-auto flex items-center gap-1 text-sm">
-          <Link href="/s3cret/export" prefetch={false} className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-ink">
+          <Link href="/s3cret/export" prefetch={false} className="rounded-[var(--radius-control)] px-3 py-2 text-muted hover:bg-canvas hover:text-accent-text">
             Export CSV
           </Link>
           {passwordRequired() && (
@@ -56,8 +59,8 @@ export function Notice({ title, children }: { title: string; children: React.Rea
 }
 
 const tone: Record<Stage, string> = {
-  applied: "bg-canvas text-ink ring-line",
-  shortlisted: "bg-[#fff1e9] text-[#9a3a0e] ring-[#ffd6c2] dark:bg-[#3a2117] dark:text-[#ffb08a] dark:ring-[#5a3020]",
+  applied: "bg-accent/10 text-accent-text ring-accent/40",
+  shortlisted: "bg-[#e8f6f6] text-[#11615f] ring-[#c4e8e6] dark:bg-[#14302f] dark:text-[#86d6d2] dark:ring-[#21484a]",
   assessment: "bg-[#eef3ff] text-[#24408e] ring-[#d3defb] dark:bg-[#1c2540] dark:text-[#a9bdf5] dark:ring-[#2c3a63]",
   interview: "bg-[#f3eefe] text-[#5b3a9e] ring-[#e2d7fb] dark:bg-[#2a2140] dark:text-[#cbb6f7] dark:ring-[#3f3263]",
   selected: "bg-[#e9f7ef] text-[#1e6b3d] ring-[#c8ebd5] dark:bg-[#16301f] dark:text-[#8fdcae] dark:ring-[#24492f]",
